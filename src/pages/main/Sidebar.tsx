@@ -36,12 +36,11 @@ export default function Sidebar({
 					setCurrentCategory("trash");
 				}}
 			>
-				<a
-					href="#trash"
+				<div
 					className="flex items-center space-x-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm transition-colors font-medium"
 				>
 					<span>🗑️</span> <span>Removed Notes</span>
-				</a>
+				</div>
 			</button>
 		</aside>
 	);
