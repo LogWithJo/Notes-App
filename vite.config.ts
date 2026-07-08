@@ -16,5 +16,5 @@ export default defineConfig({
     strictPort: true,
     port: 2011,
   },
-  base: "/Notes-App/"
+  base: "/Notes-App"
 })
