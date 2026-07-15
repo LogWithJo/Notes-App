@@ -1,5 +1,5 @@
 import {  Route, Routes } from "react-router-dom";
-import NoteApp from "./pages/main/Page";
+import NoteApp from "./pages/main/NotesAppHomePage";
 import NotePage from "./pages/Note/NotePage";
 
 export function App() {

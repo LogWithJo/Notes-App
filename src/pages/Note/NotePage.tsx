@@ -1,6 +1,13 @@
-import React from "react";
+import { Separator } from "@base-ui/react";
+import { ArrowLeft, Clock, Save } from "lucide-react";
+import React, { type Dispatch, type SetStateAction } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useInfo } from "@/stores/notes.store";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import TextareaAutosize from 'react-textarea-autosize';
 
 function NotePage() {
 	const navigate = useNavigate();
@@ -16,73 +23,102 @@ function NotePage() {
 		navigate("/");
 	}
 	return (
-		<div className="min-h-screen w-full bg-slate-50 flex flex-col font-sans">
-			{/* Navigation / Header Bar */}
-			<header className="w-full bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-				<div className="flex items-center space-x-2">
-					<span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
-					<span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-						Draft Mode
-					</span>
-				</div>
-
-				{/* Actions aligned to the top right for quick access */}
-				<div className="flex items-center gap-3">
-					<Link
-						to="/"
-						className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-150 inline-flex items-center justify-center"
-					>
-						Cancel
-					</Link>
-					<button
-						onClick={saveNote}
-						type="button"
-						className="px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-lg shadow-sm shadow-blue-100 transition-all duration-150"
-					>
-						Save Note
-					</button>
-				</div>
-			</header>
-
-			{/* Main Editor Workspace */}
-			<main className="flex-1 w-full max-w-4xl mx-auto px-6 md:px-12 py-10 flex flex-col gap-6">
-				{/* Title Field (Borderless & Large) */}
-				<div className="w-full">
-					<textarea
-						name="title"
-						id="title"
-						value={inputValue.title}
-						onChange={(e) => {
-							setInputValue((prev) => ({
-								...prev,
-								title: `${e.target.value}`,
-							}));
-						}}
-						rows={1}
-						placeholder="Untitled Note"
-						className="w-full text-4xl font-bold text-slate-900 placeholder-slate-300 bg-transparent border-none resize-none focus:outline-none focus:ring-0 p-0 leading-tight"
-					></textarea>
-				</div>
-
-				{/* Divider line that subtly separates title from content */}
-				<hr className="border-slate-200" />
-
-				{/* Content Field (Takes up the remaining vertical viewport space) */}
-				<div className="flex-1 w-full flex">
-					<textarea
-						name="content"
-						id="content"
-						value={inputValue.content}
-						onChange={(e) => {
-							setInputValue((prev) => ({ ...prev, content: e.target.value }));
-						}}
-						placeholder="Start writing your thoughts here..."
-						className="w-full flex-1 text-base text-slate-700 placeholder-slate-400 bg-transparent border-none resize-none focus:outline-none focus:ring-0 p-0 leading-relaxed min-h-[50vh]"
-					></textarea>
-				</div>
-			</main>
-		</div>
+		<>
+			<Header saveNote={saveNote} />
+			<MainSection inputValue={inputValue} setInputValue={setInputValue} />
+		</>
 	);
 }
 
 export default NotePage;
+
+function Header({ saveNote }: { saveNote: () => void }) {
+	return (
+		<header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
+			<div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+				<div className="flex items-center gap-3">
+					<SidebarTrigger />
+					<Badge variant="secondary">Draft</Badge>
+
+					<div className="flex items-center gap-1 text-sm text-muted-foreground">
+						<Clock className="size-4" />
+						<span>Editing note</span>
+					</div>
+				</div>
+
+				<div className="flex gap-2">
+					<Button variant="outline">
+						<Link to="/" className='flex'>
+							<ArrowLeft className="mr-2 size-4" />
+							Cancel
+						</Link>
+					</Button>
+
+					<Button onClick={saveNote}>
+						<Save className="mr-2 size-4" />
+						Save
+					</Button>
+				</div>
+			</div>
+		</header>
+	);
+}
+
+function MainSection({
+	inputValue,
+	setInputValue,
+}: {
+	inputValue: {
+		title: string;
+		content: string;
+	};
+	setInputValue: Dispatch<
+		SetStateAction<{
+			title: string;
+			content: string;
+		}>
+	>;
+}) {
+	return (
+		<main className="mx-auto w-full max-w-5xl p-6">
+			<Card className="shadow-lg">
+				<CardHeader className="pb-4">
+					<CardTitle className="text-muted-foreground text-sm">
+						Note Editor
+					</CardTitle>
+				</CardHeader>
+
+				<Separator />
+
+				<CardContent className="space-y-6 pt-6">
+
+					<TextareaAutosize
+						value={inputValue.title}
+						onChange={(e) =>
+							setInputValue((prev) => ({
+								...prev,
+								title: e.target.value,
+							}))
+						}
+						rows={1}
+						placeholder="Untitled Note"
+						className="w-full resize-none bg-transparent text-5xl font-bold outline-none placeholder:text-muted-foreground"
+					/>
+
+					<TextareaAutosize
+						value={inputValue.content}
+						onChange={(e) =>
+							setInputValue((prev) => ({
+								...prev,
+								content: e.target.value,
+							}))
+						}
+						placeholder="Start writing..."
+						className="min-h-[65vh] w-full resize-none bg-transparent text-base leading-8 outline-none placeholder:text-muted-foreground"
+					/>
+					<Separator />
+				</CardContent>
+			</Card>
+		</main>
+	);
+}

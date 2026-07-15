@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { InfoType } from "@/types/type";
+import type { InfoType } from "@/lib/type";
 
 export const useInfo = create<InfoType>()(
 	devtools(
@@ -8,18 +8,22 @@ export const useInfo = create<InfoType>()(
 			(set) => ({
 				notes: [],
 				currentCategory: "all",
+				searchText: "",
+				updateSearchText: (newVal) => {
+					set({searchText: newVal})
+				},
 				setCurrentCategory: (category) => {
 					set(() => {
-						return { currentCategory: category };
+						return { currentCategory: category, searchText: "" };
 					});
 				},
 				createNewNote: (title, catogry) => {
 					set((state) => {
 						const newNotes = [
 							...state.notes,
-							{ id: Date.now(), title, deleted: false, catogry, content: "" },
+							{ id: Date.now(), date: Date.now(), title, deleted: false, catogry, content: "" },
 						];
-						return { notes: newNotes };
+						return { notes: newNotes, searchText: "" };
 					});
 				},
 				deleteNote: (id) => {
@@ -28,8 +32,14 @@ export const useInfo = create<InfoType>()(
 							...note,
 							deleted: note.id === id ? !note.deleted : note.deleted,
 						}));
-						return { notes: newNotes };
+						return { notes: newNotes, searchText: "" };
 					});
+				},
+				deleteNoteForEver: (id) => {
+					set(state => {
+						const newNotes = state.notes.filter(note => note.id !== id)
+						return {notes: newNotes, searchText: ""}
+					})
 				},
 				editNote: (id, title, content) => {
 					set((state) => {
@@ -38,7 +48,7 @@ export const useInfo = create<InfoType>()(
 							{ ...note, title, content },
 							...state.notes.filter((not) => not.id !== id),
 						];
-						return { notes: newNotes };
+						return { notes: newNotes, searchText: "" };
 					});
 				},
 			}),

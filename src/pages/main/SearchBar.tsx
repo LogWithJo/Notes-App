@@ -1,28 +1,27 @@
-import type React from "react";
+import { SearchIcon } from "lucide-react";
+import { Field } from "@/components/ui/field";
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupInput,
+} from "@/components/ui/input-group";
+import { useInfo } from "@/stores/notes.store";
 
-export default function SearchBar({
-	value: inputValue,
-	set: setInputValue,
-}: {
-	value: string;
-	set: React.Dispatch<React.SetStateAction<string>>;
-}) {
+export default function SearchBar() {
+	const { searchText, updateSearchText } = useInfo();
 	return (
-		<div className="w-full max-w-2xl mx-auto mb-8">
-			<div className="relative">
-				<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-					🔍
-				</span>
-				<input
-					value={inputValue}
-					onChange={(e) => {
-						setInputValue(e.target.value);
-					}}
-					type="text"
-					placeholder="Search notes by title..."
-					className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm transition-all"
+		<Field>
+			<InputGroup>
+				<InputGroupInput
+					value={searchText}
+					onChange={(e) => {updateSearchText(e.target.value);}}
+					id="inline-start-input"
+					placeholder="Search..."
 				/>
-			</div>
-		</div>
+				<InputGroupAddon align="inline-start">
+					<SearchIcon className="text-muted-foreground"></SearchIcon>
+				</InputGroupAddon>
+			</InputGroup>
+		</Field>
 	);
 }

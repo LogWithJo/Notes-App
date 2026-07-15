@@ -1,122 +1,122 @@
-import React from "react";
+import React, { type FormEvent } from "react";
+import { PlusIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+	Field,
+	FieldDescription,
+	FieldError,
+	FieldGroup,
+	FieldLabel,
+	FieldLegend,
+	FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { useInfo } from "@/stores/notes.store";
-import AddButton from "./AddButton";
 
-export default function AddNoteDialog({
-	isOpen,
-	setIsOpen,
-}: {
-	isOpen: boolean;
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-	const { notes } = useInfo();
-	const [showError, setShowError] = React.useState(false);
-	const [inputValues, setInputValues] = React.useState({
-		title: "",
-		category: "",
-	});
-	const { createNewNote } = useInfo();
-	function handleClick() {
-		setIsOpen(false);
-		setInputValues({ title: "", category: "" });
-		const result = verify(inputValues.title);
-		console.log(result)
-		if (result) {
-			setShowError(true);
-			setTimeout(() => {
-				setShowError(false);
-			}, 1000);
-			return
+export default function AddNoteDialog() {
+	const { notes, createNewNote } = useInfo();
+
+	const [title, setTitle] = React.useState("");
+	const [category, setCategory] = React.useState("");
+	const [titleError, setTitleError] = React.useState<string | null>(null);
+	const [isOpen, setIsOpen] = React.useState<boolean>(false)
+
+	const titleTrimmed = title.trim();
+	const categoryTrimmed = category.trim();
+
+	const isDuplicateTitle = React.useMemo(() => {
+		if (!titleTrimmed) return false;
+		return notes.some(
+			(note) =>
+				!note.deleted &&
+				note.title.toLowerCase() === titleTrimmed.toLowerCase(),
+		);
+	}, [notes, titleTrimmed]);
+
+	function validate() {
+		if (!titleTrimmed) {
+			setTitleError("Title is required.");
+			return false;
 		}
-		createNewNote(inputValues.title, inputValues.category);
+		if (isDuplicateTitle) {
+			setTitleError("A note with this title already exists.");
+			return false;
+		}
+		setTitleError(null);
+		return true;
 	}
 
-	function verify(text: string) {
-		if (!inputValues.title) return true;
-		return [...notes.map((note) => note.title)].some((title) => title.toLowerCase() === text.toLowerCase());
+	function handleSubmit(e: FormEvent) {
+		e.preventDefault();
+		if (!validate()) return;
+
+		createNewNote(titleTrimmed.toLowerCase(), categoryTrimmed.toLowerCase());
+
+		setTitle("");
+		setCategory("");
+		setIsOpen(false)
+		setTitleError(null);
 	}
 
 	return (
-		<div className="p-2">
-			<AddButton set={setIsOpen} />
+		<Dialog open={isOpen} onOpenChange={() => setIsOpen(prev => !prev)}>
+			<DialogTrigger render={<Button size="lg" className="shadow-sm" />}>
+				<PlusIcon className="size-4" />
+				<span className="hidden sm:inline">Add new note</span>
+				<span className="sm:hidden">New</span>
+			</DialogTrigger>
+			<DialogContent>
+				<DialogHeader>Add new Note</DialogHeader>
 
-			{isOpen && (
-				<div className="fixed inset-0 top-0 left-0 z-50 flex items-center justify-center">
-					<button
-						type="button"
-						className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-						onClick={() => setIsOpen(false)}
-					/>
+				<form onSubmit={handleSubmit}>
+					<FieldSet>
+						<FieldLegend>New note</FieldLegend>
+						<FieldDescription>
+							Fill title and category, then submit.
+						</FieldDescription>
 
-					<div className="relative bg-white p-6 rounded-xl shadow-lg w-full max-w-md border border-gray-100 animate-in fade-in-50 zoom-in-95 duration-200 z-10 mx-4">
-						<div className="flex flex-col space-y-1.5 text-center sm:text-left mb-4">
-							<h2 className="text-lg font-semibold leading-none tracking-tight">
-								Create New Note
-							</h2>
-							<p className="text-sm text-gray-500">
-								Add details to kickstart your next thought.
-							</p>
-						</div>
-
-						<div className="grid gap-4 py-4">
-							<div className="grid grid-cols-4 items-center gap-4">
-								<div className="text-right text-sm font-medium text-gray-600">
-									Title
-								</div>
-								<input
-									type="text"
-									placeholder="Note title..."
-									className="col-span-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-									value={inputValues.title}
-									onChange={(e) => {
-										setInputValues((prev) => ({
-											...prev,
-											title: e.target.value,
-										}));
-									}}
+						<FieldGroup>
+							<Field>
+								<FieldLabel htmlFor="note-title">Title</FieldLabel>
+								<Input
+									id="note-title"
+									autoComplete="off"
+									placeholder="My first note"
+									value={title}
+									onChange={(e) => setTitle(e.target.value)}
+									aria-invalid={!!titleError}
 								/>
-								{showError && <div>error</div>}
-							</div>
-							<div className="grid grid-cols-4 items-center gap-4">
-								<div className="text-right text-sm font-medium text-gray-600">
-									Category
-								</div>
-								<input
-									type="text"
-									placeholder="Note Category..."
-									className="col-span-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-									value={inputValues.category}
-									onChange={(e) => {
-										setInputValues((prev) => ({
-											...prev,
-											category: e.target.value,
-										}));
-									}}
-								/>
-							</div>
-						</div>
+								{titleError && <FieldError>{titleError}</FieldError>}
+							</Field>
 
-						<div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-2 gap-2">
-							<button
-								type="button"
-								onClick={() => setIsOpen(false)}
-								className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
-							>
-								Cancel
-							</button>
-							<button
-								type="button"
-								onClick={() => {
-									handleClick();
-								}}
-								className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
-							>
-								Save Note
-							</button>
+							<Field>
+								<FieldLabel htmlFor="note-category">Category</FieldLabel>
+								<Input
+									id="note-category"
+									autoComplete="off"
+									placeholder="work | personal | id
+eas"
+									value={category}
+									onChange={(e) => setCategory(e.target.value)}
+								/>
+								<FieldDescription>
+									Optional. Leave blank for uncategorized.
+								</FieldDescription>
+							</Field>
+						</FieldGroup>
+
+						<div className="mt-4 flex justify-end">
+							<Button type="submit">Create</Button>
 						</div>
-					</div>
-				</div>
-			)}
-		</div>
-	)
+					</FieldSet>
+				</form>
+			</DialogContent>
+		</Dialog>
+	);
 }
