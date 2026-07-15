@@ -65,7 +65,7 @@ export default function AddNoteDialog() {
 	}
 
 	return (
-		<Dialog open={isOpen} onOpenChange={() => setIsOpen(prev => !prev)}>
+		<Dialog open={isOpen} onOpenChange={(e) => { setIsOpen(e) }}>
 			<DialogTrigger render={<Button size="lg" className="shadow-sm" />}>
 				<PlusIcon className="size-4" />
 				<span className="hidden sm:inline">Add new note</span>

@@ -1,10 +1,13 @@
-import Header from "./Header";
+import { NotesHeader } from "./Header";
+
 import NotesGrid from "./NotesGrid";
 
-export default function NoteApp() {
+export default function NotesHomePage() {
+
 	return (
 		<main>
-			<Header />
+			<NotesHeader />
+
 			<NotesGrid />
 		</main>
 	);

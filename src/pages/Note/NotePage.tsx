@@ -9,11 +9,15 @@ import { useInfo } from "@/stores/notes.store";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import TextareaAutosize from 'react-textarea-autosize';
 
-function NotePage() {
+function NoteEditorPage() {
+
 	const navigate = useNavigate();
 	const { notes, editNote } = useInfo();
 	const { id } = useParams();
 	const [note] = notes.filter((not) => Number(not.id) === Number(id));
+	if (note === undefined) {
+		navigate("/")
+	}
 	const [inputValue, setInputValue] = React.useState({
 		title: note.title,
 		content: note.content,
@@ -24,15 +28,18 @@ function NotePage() {
 	}
 	return (
 		<>
-			<Header saveNote={saveNote} />
-			<MainSection inputValue={inputValue} setInputValue={setInputValue} />
+			<NoteEditorHeader saveNote={saveNote} />
+
+			<NoteEditorMain inputValue={inputValue} setInputValue={setInputValue} />
 		</>
 	);
 }
 
-export default NotePage;
+export default NoteEditorPage;
 
-function Header({ saveNote }: { saveNote: () => void }) {
+
+function NoteEditorHeader({ saveNote }: { saveNote: () => void }) {
+
 	return (
 		<header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
 			<div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
@@ -64,7 +71,7 @@ function Header({ saveNote }: { saveNote: () => void }) {
 	);
 }
 
-function MainSection({
+function NoteEditorMain({
 	inputValue,
 	setInputValue,
 }: {

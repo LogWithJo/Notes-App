@@ -11,14 +11,15 @@ import { Separator } from "@/components/ui/separator";
 import NoteCard from "./NoteCard";
 import type { NoteType } from "@/lib/type";
 import { useInfo } from "@/stores/notes.store";
+import { useMemo } from "react";
 
 export default function NotesGrid() {
 	const { notes: beforeIint, currentCategory, searchText } = useInfo();
-	const filteredNotes = currentCategory === "all" ? beforeIint : currentCategory === "trash" ? beforeIint.filter(note => note.deleted) : beforeIint.filter(note => note.catogry === currentCategory)
-	const filterNotesBySearch = filteredNotes.filter(note => note.title.toLowerCase().includes(searchText.toLowerCase()) || note.content.toLowerCase().includes(searchText.toLowerCase()))
+	const filteredNotes = useMemo(() => { return currentCategory === "all" ? beforeIint : currentCategory === "trash" ? beforeIint.filter(note => note.deleted) : beforeIint.filter(note => note.catogry === currentCategory) }, [])
+	const filterNotesBySearch = useMemo(() => { return filteredNotes.filter(note => note.title.toLowerCase().includes(searchText.toLowerCase())) }, [])
 
 	const isSearching = searchText.trim().length > 0
-	const notes: NoteType[] = isSearching ? filterNotesBySearch : filteredNotes
+	const notes: NoteType[] = useMemo(() => { return isSearching ? filterNotesBySearch : filteredNotes }, [])
 
 
 	return (
