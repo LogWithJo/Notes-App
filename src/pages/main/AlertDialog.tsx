@@ -13,19 +13,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
+interface Props {
+	isOpen: boolean;
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	deleteNoteForEver: (id: number) => void;
+	id: number;
+	title: string;
+}
+
 export function DeleteNoteDialog({
 	isOpen,
 	setIsOpen,
 	deleteNoteForEver,
 	id,
 	title,
-}: {
-	isOpen: boolean;
-	setIsOpen: Dispatch<SetStateAction<boolean>>;
-	deleteNoteForEver: (id: number) => void;
-	id: number;
-	title: string;
-}) {
+}: Props) {
 	return (
 		<AlertDialog
 			open={isOpen}

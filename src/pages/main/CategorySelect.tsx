@@ -8,13 +8,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useAddNoteDialog } from "@/stores/FilterNotes.store";
-import { useInfo } from "@/stores/notes.store";
+import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
+import { useNotesStore } from "@/stores/notes.store";
 
-export function SelectDemo() {
-	const { categories } = useInfo();
-	const { setCategory } = useAddNoteDialog();
-	const newCateg: { label: ReactNode; value: string }[] = categories.map(
+export function CategorySelect() {
+	const { categories } = useNotesStore();
+	const { setCategory } = useAddNoteDialogStore();
+	const categoryItems: { label: ReactNode; value: string }[] = categories.map(
 		(category) => ({
 			label: <div>{category}</div>,
 			value: category,
@@ -22,7 +22,7 @@ export function SelectDemo() {
 	);
 	return (
 		<Select
-			items={newCateg}
+			items={categoryItems}
 			defaultValue={categories[categories.length - 1]}
 			onValueChange={(value) => {
 				if (typeof value !== "string") return;
@@ -35,9 +35,9 @@ export function SelectDemo() {
 			<SelectContent>
 				<SelectGroup>
 					<SelectLabel>
-						{newCateg.length > 0 ? "Categories" : "No Categories Found"}
+						{categoryItems.length > 0 ? "Categories" : "No Categories Found"}
 					</SelectLabel>
-					{newCateg.map((item) => (
+					{categoryItems.map((item) => (
 						<SelectItem key={item.value} value={item.value}>
 							{item.label}
 						</SelectItem>

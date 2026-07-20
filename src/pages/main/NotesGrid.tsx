@@ -9,16 +9,16 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { useFilterNotes } from "@/hooks/hooks";
-import { useInfo } from "@/stores/notes.store";
+import { useNotesStore } from "@/stores/notes.store";
 import NoteCard from "./NoteCard";
 
-export default function Container({ children }: { children: ReactNode }) {
+export default function NotesSection({ children }: { children: ReactNode }) {
 	return <section className="space-y-5 px-2 py-4 sm:px-4">{children}</section>;
 }
 
-export function Results() {
+export function NotesResultsHeader() {
 	const { isSearching } = useFilterNotes();
-	const { searchText, notes } = useInfo();
+	const { searchText, notes } = useNotesStore();
 	return (
 		<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 			<div className="space-y-1.5">
@@ -51,7 +51,7 @@ export function Results() {
 	);
 }
 
-export function NotFound() {
+export function NoNotesFound() {
 	const { isSearching } = useFilterNotes();
 	return (
 		<Card className="border-dashed bg-muted/20 shadow-none">
@@ -76,7 +76,7 @@ export function NotFound() {
 }
 
 export function NotesGrid() {
-	const { notes } = useInfo();
+	const { notes } = useNotesStore();
 	return (
 		<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
 			{notes.map((note) => (

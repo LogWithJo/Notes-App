@@ -1,13 +1,17 @@
 import { Separator } from "@base-ui/react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useInfo } from "@/stores/notes.store";
+import { useNotesStore } from "@/stores/notes.store";
 import AddNoteDialog from "./AddNoteDialog";
-import { NotesHeader } from "./Header";
-import Container, { NotesGrid, NotFound, Results } from "./NotesGrid";
+import NotesSection, {
+	NoNotesFound,
+	NotesGrid,
+	NotesResultsHeader,
+} from "./NotesGrid";
+import { NotesHeader } from "./NotesHeader";
 import SearchBar from "./SearchBar";
 
 export default function NotesHomePage() {
-	const { notes } = useInfo();
+	const { notes } = useNotesStore();
 	return (
 		<main>
 			<NotesHeader>
@@ -16,11 +20,11 @@ export default function NotesHomePage() {
 				<AddNoteDialog />
 			</NotesHeader>
 
-			<Container>
-				<Results />
+			<NotesSection>
+				<NotesResultsHeader />
 				<Separator />
-				{notes.length === 0 ? <NotFound /> : <NotesGrid />}
-			</Container>
+				{notes.length === 0 ? <NoNotesFound /> : <NotesGrid />}
+			</NotesSection>
 		</main>
 	);
 }

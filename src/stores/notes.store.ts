@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import type { NotesStore } from "@/lib/type";
 
-export const useInfo = create<NotesStore>()(
+export const useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({

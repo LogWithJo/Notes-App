@@ -1,19 +1,19 @@
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { NoteType } from "@/lib/type";
-import { useAddNoteDialog } from "@/stores/FilterNotes.store";
-import { useInfo } from "@/stores/notes.store";
+import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
+import { useNotesStore } from "@/stores/notes.store";
 
 export function useFilterNotes() {
-	const { notes: beforeIint, currentCategory, searchText } = useInfo();
+	const { notes: beforeInit, currentCategory, searchText } = useNotesStore();
 	const filteredNotes = useMemo(() => {
 		return currentCategory === "all"
-			? beforeIint.filter((note) => !note.deleted)
+			? beforeInit.filter((note) => !note.deleted)
 			: currentCategory === "trash"
-				? beforeIint.filter((note) => note.deleted)
-				: beforeIint.filter((note) => note.category === currentCategory);
-	}, [beforeIint, currentCategory]);
-	const filterNotesBySearch = useMemo(() => {
+				? beforeInit.filter((note) => note.deleted)
+				: beforeInit.filter((note) => note.category === currentCategory);
+	}, [beforeInit, currentCategory]);
+	const searchedNotes = useMemo(() => {
 		return filteredNotes.filter((note) =>
 			note.title.toLowerCase().includes(searchText.toLowerCase()),
 		);
@@ -21,13 +21,13 @@ export function useFilterNotes() {
 
 	const isSearching = searchText.trim().length > 0;
 	const notes: NoteType[] = useMemo(() => {
-		return isSearching ? filterNotesBySearch : filteredNotes;
-	}, [isSearching, filterNotesBySearch, filteredNotes]);
+		return isSearching ? searchedNotes : filteredNotes;
+	}, [isSearching, searchedNotes, filteredNotes]);
 	return { isSearching, notes };
 }
 
 export function useAddNoteDialogOnSubmit() {
-	const { notes, createNewNote } = useInfo();
+	const { notes, createNewNote } = useNotesStore();
 	const {
 		title,
 		category,
@@ -35,7 +35,7 @@ export function useAddNoteDialogOnSubmit() {
 		setTitle,
 		setCategory,
 		toggleIsOpen,
-	} = useAddNoteDialog();
+	} = useAddNoteDialogStore();
 
 	const titleTrimmed = title.trim();
 	const categoryTrimmed = category.trim();
@@ -79,8 +79,8 @@ export function useAddNoteDialogOnSubmit() {
 }
 
 export function useAddCategoryFieldData() {
-	const { setIsAddCategoryOpen } = useAddNoteDialog();
-	const { addNewCategory } = useInfo();
+	const { setIsAddCategoryOpen } = useAddNoteDialogStore();
+	const { addNewCategory } = useNotesStore();
 	const [error, setIsError] = useState(false);
 	const [category, setCategory] = useState("");
 	function close() {
@@ -104,7 +104,7 @@ export function useAddCategoryFieldData() {
 
 export function useNotePageData(id: number) {
 	const navigate = useNavigate();
-	const { notes, editNote } = useInfo();
+	const { notes, editNote } = useNotesStore();
 	const [isSaving, setIsSaving] = useState(false);
 	const [note] = notes.filter((not) => Number(not.id) === Number(id));
 	const [title, setTitle] = useState(note.title);

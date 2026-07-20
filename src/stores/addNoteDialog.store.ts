@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { TAddNoteDialogData } from "@/lib/type";
+import type { AddNoteDialogData } from "@/lib/type";
 
-export const useAddNoteDialog = create<TAddNoteDialogData>()(
+export const useAddNoteDialogStore = create<AddNoteDialogData>()(
 	devtools(
 		persist(
 			(set) => ({
@@ -31,7 +31,7 @@ export const useAddNoteDialog = create<TAddNoteDialogData>()(
 				},
 			}),
 			{
-				name: "FilterNotes-Storage",
+				name: "AddNoteDialog-Storage",
 			},
 		),
 	),

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import NoteEditorHeader from "./NoteEditorHeader";
 import NoteEditorMain from "./NoteEditorMain";
 
-function NoteEditorPage() {
+function NotePage() {
 	const { id } = useParams();
 	return (
 		<>
@@ -13,4 +13,4 @@ function NoteEditorPage() {
 	);
 }
 
-export default NoteEditorPage;
+export default NotePage;

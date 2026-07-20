@@ -22,11 +22,11 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { NoteType } from "@/lib/type";
-import { useInfo } from "@/stores/notes.store";
+import { useNotesStore } from "@/stores/notes.store";
 import { DeleteNoteDialog } from "./AlertDialog";
 
 export default function NoteCard({ note }: { note: NoteType }) {
-	const { deleteNote, deleteNoteForEver } = useInfo();
+	const { deleteNote, deleteNoteForEver } = useNotesStore();
 	const hasContent = note.content.trim().length > 0;
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -46,7 +46,15 @@ export default function NoteCard({ note }: { note: NoteType }) {
 
 	return (
 		<>
-			{isOpen && <DeleteNoteDialog isOpen={isOpen} setIsOpen={setIsOpen} deleteNoteForEver={deleteNoteForEver} id={note.id} title={note.title} />}
+			{isOpen && (
+				<DeleteNoteDialog
+					isOpen={isOpen}
+					setIsOpen={setIsOpen}
+					deleteNoteForEver={deleteNoteForEver}
+					id={note.id}
+					title={note.title}
+				/>
+			)}
 			<Card className="group h-full overflow-hidden py-0 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md">
 				<CardHeader className="gap-3 px-5 pt-5">
 					<div className="flex items-start justify-between gap-3">

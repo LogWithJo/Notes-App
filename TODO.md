@@ -6,7 +6,8 @@
 - [x] - Add autosave (debounced write on change) or at least a dirty-state check with a confirm-on-navigate for NotePage.
 - [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.
 - [ ] - Make the sideBar links with a react router
-- [ ] - enhance side bar for mobile
+- [ ] - enhance side bar for mobile view
+
 
 ## Enhancements
 - [ ] - Undo toast after delete ("Note deleted — Undo") instead of relying solely on the trash/restore flow.

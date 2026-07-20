@@ -5,10 +5,10 @@ import {
 	InputGroupAddon,
 	InputGroupInput,
 } from "@/components/ui/input-group";
-import { useInfo } from "@/stores/notes.store";
+import { useNotesStore } from "@/stores/notes.store";
 
 export default function SearchBar() {
-	const { searchText, updateSearchText } = useInfo();
+	const { searchText, updateSearchText } = useNotesStore();
 	return (
 		<div>
 			<Field>

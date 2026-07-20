@@ -15,8 +15,8 @@ import {
 	useAddCategoryFieldData,
 	useAddNoteDialogOnSubmit,
 } from "@/hooks/hooks";
-import { useAddNoteDialog } from "@/stores/FilterNotes.store";
-import { SelectDemo } from "./Select";
+import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
+import { CategorySelect } from "./CategorySelect";
 
 export default function AddNoteDialog() {
 	const {
@@ -26,7 +26,7 @@ export default function AddNoteDialog() {
 		setTitle,
 		toggleIsOpen,
 		isAddCategoryOpen,
-	} = useAddNoteDialog();
+	} = useAddNoteDialogStore();
 	const { handleSubmit } = useAddNoteDialogOnSubmit();
 
 	return (
@@ -65,7 +65,11 @@ export default function AddNoteDialog() {
 
 							<Field>
 								<FieldLabel htmlFor="note-category">Category</FieldLabel>
-								{isAddCategoryOpen ? <AddCategoryField /> : <CategorySelect />}
+								{isAddCategoryOpen ? (
+									<AddCategoryInputField />
+								) : (
+									<CategorySelectField />
+								)}
 								<FieldDescription>
 									Optional. Leave blank for uncategorized.
 								</FieldDescription>
@@ -82,11 +86,11 @@ export default function AddNoteDialog() {
 	);
 }
 
-function CategorySelect() {
-	const { setIsAddCategoryOpen: onClick } = useAddNoteDialog();
+function CategorySelectField() {
+	const { setIsAddCategoryOpen: onClick } = useAddNoteDialogStore();
 	return (
 		<div className="flex gap-4 justify-around items-center">
-			<SelectDemo />
+			<CategorySelect />
 			<Button
 				variant="secondary"
 				className="cursor-pointer"
@@ -100,7 +104,7 @@ function CategorySelect() {
 	);
 }
 
-function AddCategoryField() {
+function AddCategoryInputField() {
 	const { error, handleClick, close, handleInputChange, category } =
 		useAddCategoryFieldData();
 	return (

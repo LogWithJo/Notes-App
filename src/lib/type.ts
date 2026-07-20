@@ -14,14 +14,14 @@ export interface NotesStore {
 	searchText: string;
 	addNewCategory: (category: string[]) => void;
 	updateSearchText: (newVal: string) => void;
-	createNewNote: (title: string, catogry: string) => void;
+	createNewNote: (title: string, category: string) => void;
 	deleteNote: (id: number) => void;
 	setCurrentCategory: (category: string) => void;
 	deleteNoteForEver: (id: number) => void;
 	editNote: (id: number, title: string, content: string) => void;
 }
 
-export interface TAddNoteDialogData {
+export interface AddNoteDialogData {
 	title: string;
 	category: string;
 	titleError: string | null;
@@ -33,5 +33,3 @@ export interface TAddNoteDialogData {
 	setCategory: (category: string) => void;
 	setTitle: (title: string) => void;
 }
-
-export type SaveStatus = "editing" | "saving" | "saved";

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import NotesHomePage from "./pages/main/NotesAppHomePage";
-import NotePage from "./pages/Note/NotePage";
+import NoteEditorPage from "./pages/Note/NotePage";
 
 export function App() {
 	return (
@@ -15,7 +15,7 @@ export function App() {
 				}
 			/>
 
-			<Route path="/notes/:id" element={<NotePage />} />
+			<Route path="/notes/:id" element={<NoteEditorPage />} />
 		</Routes>
 	);
 }

@@ -8,10 +8,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useInfo } from "@/stores/notes.store";
+import { useNotesStore } from "@/stores/notes.store";
 
 export function AppSidebar() {
-	const { notes, setCurrentCategory } = useInfo();
+	const { notes, setCurrentCategory } = useNotesStore();
 	const categories = [
 		...new Set(
 			notes
