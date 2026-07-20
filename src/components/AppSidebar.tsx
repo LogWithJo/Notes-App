@@ -16,7 +16,7 @@ export function AppSidebar() {
 		...new Set(
 			notes
 				.filter((note) => !note.deleted)
-				.map((note) => note.catogry)
+				.map((note) => note.category)
 				.filter((categ) => categ !== ""),
 		),
 	];

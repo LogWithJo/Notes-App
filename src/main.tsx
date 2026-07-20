@@ -5,15 +5,12 @@ import "./index.css";
 import { HashRouter } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider.tsx";
 import App from "./App.tsx";
-import Layout from "./Layout.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<ThemeProvider>
 			<HashRouter>
-				<Layout>
 					<App />
-				</Layout>
 			</HashRouter>
 		</ThemeProvider>
 	</StrictMode>,

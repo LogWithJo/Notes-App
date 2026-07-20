@@ -1,14 +1,11 @@
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import AddNoteDialog from "./AddNoteDialog";
-import SearchBar from "./SearchBar";
 
-export function NotesHeader() {
+import type { ReactNode } from "react";
+
+export function NotesHeader({children}: {children: ReactNode}) {
 	return (
 
 		<div className="flex justify-between items-center p-2 w-full">
-			<SidebarTrigger />
-			<div><SearchBar /></div>
-			<AddNoteDialog />
+			{children}
 		</div>
 	);
 }

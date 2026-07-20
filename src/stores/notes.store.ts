@@ -1,27 +1,44 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { InfoType } from "@/lib/type";
+import type { NotesStore } from "@/lib/type";
 
-export const useInfo = create<InfoType>()(
+export const useInfo = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
 				notes: [],
 				currentCategory: "all",
 				searchText: "",
+				categories: ["work", "personal"],
+				addNewCategory: (category) => {
+					set((state) => {
+						console.log([...new Set([...state.categories, ...category])]);
+						return {
+							categories: [...new Set([...state.categories, ...category])],
+						};
+					});
+				},
 				updateSearchText: (newVal) => {
-					set({searchText: newVal})
+					set({ searchText: newVal });
 				},
 				setCurrentCategory: (category) => {
 					set(() => {
 						return { currentCategory: category, searchText: "" };
 					});
 				},
-				createNewNote: (title, catogry) => {
+				createNewNote: (title, category) => {
+					console.log(category);
 					set((state) => {
 						const newNotes = [
 							...state.notes,
-							{ id: Date.now(), date: Date.now(), title, deleted: false, catogry, content: "" },
+							{
+								id: Date.now(),
+								date: Date.now(),
+								title,
+								deleted: false,
+								category,
+								content: "",
+							},
 						];
 						return { notes: newNotes, searchText: "" };
 					});
@@ -36,10 +53,10 @@ export const useInfo = create<InfoType>()(
 					});
 				},
 				deleteNoteForEver: (id) => {
-					set(state => {
-						const newNotes = state.notes.filter(note => note.id !== id)
-						return {notes: newNotes, searchText: ""}
-					})
+					set((state) => {
+						const newNotes = state.notes.filter((note) => note.id !== id);
+						return { notes: newNotes, searchText: "" };
+					});
 				},
 				editNote: (id, title, content) => {
 					set((state) => {

@@ -10,18 +10,22 @@ import { useInfo } from "@/stores/notes.store";
 export default function SearchBar() {
 	const { searchText, updateSearchText } = useInfo();
 	return (
-		<Field>
-			<InputGroup>
-				<InputGroupInput
-					value={searchText}
-					onChange={(e) => {updateSearchText(e.target.value);}}
-					id="inline-start-input"
-					placeholder="Search..."
-				/>
-				<InputGroupAddon align="inline-start">
-					<SearchIcon className="text-muted-foreground"></SearchIcon>
-				</InputGroupAddon>
-			</InputGroup>
-		</Field>
+		<div>
+			<Field>
+				<InputGroup>
+					<InputGroupInput
+						value={searchText}
+						onChange={(e) => {
+							updateSearchText(e.target.value);
+						}}
+						id="inline-start-input"
+						placeholder="Search..."
+					/>
+					<InputGroupAddon align="inline-start">
+						<SearchIcon className="text-muted-foreground"></SearchIcon>
+					</InputGroupAddon>
+				</InputGroup>
+			</Field>
+		</div>
 	);
 }
