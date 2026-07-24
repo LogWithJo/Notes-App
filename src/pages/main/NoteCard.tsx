@@ -113,7 +113,7 @@ export default function NoteCard({ note }: { note: NoteType }) {
 					</div>
 				</CardHeader>
 
-				<Link to={`/notes/${note.id}`} className="flex flex-1 flex-col">
+				<Link to={`/note/${note.id}`} className="flex flex-1 flex-col">
 					<CardContent className="flex-1 px-5 pb-5">
 						<p className="line-clamp-4 min-h-20 text-sm leading-6 text-muted-foreground">
 							{hasContent ? note.content : "No content yet."}

@@ -17,8 +17,8 @@ export default function NotesSection({ children }: { children: ReactNode }) {
 }
 
 export function NotesResultsHeader() {
-	const { isSearching } = useFilterNotes();
-	const { searchText, notes } = useNotesStore();
+	const { isSearching, notes } = useFilterNotes();
+	const { searchText } = useNotesStore();
 	return (
 		<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 			<div className="space-y-1.5">
@@ -76,7 +76,7 @@ export function NoNotesFound() {
 }
 
 export function NotesGrid() {
-	const { notes } = useNotesStore();
+	const { notes } = useFilterNotes();
 	return (
 		<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
 			{notes.map((note) => (

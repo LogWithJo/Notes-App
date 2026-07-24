@@ -10,13 +10,11 @@ export interface NoteType {
 export interface NotesStore {
 	notes: NoteType[];
 	categories: string[];
-	currentCategory: string;
 	searchText: string;
 	addNewCategory: (category: string[]) => void;
 	updateSearchText: (newVal: string) => void;
 	createNewNote: (title: string, category: string) => void;
 	deleteNote: (id: number) => void;
-	setCurrentCategory: (category: string) => void;
 	deleteNoteForEver: (id: number) => void;
 	editNote: (id: number, title: string, content: string) => void;
 }

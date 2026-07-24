@@ -13,7 +13,7 @@ import { useNotesStore } from "@/stores/notes.store";
 
 export function CategorySelect() {
 	const { categories } = useNotesStore();
-	const { setCategory } = useAddNoteDialogStore();
+	const { setCategory, isAddCategoryOpen, category } = useAddNoteDialogStore();
 	const categoryItems: { label: ReactNode; value: string }[] = categories.map(
 		(category) => ({
 			label: <div>{category}</div>,
@@ -23,10 +23,10 @@ export function CategorySelect() {
 	return (
 		<Select
 			items={categoryItems}
-			defaultValue={categories[categories.length - 1]}
+			value={category}
 			onValueChange={(value) => {
 				if (typeof value !== "string") return;
-				setCategory(value);
+				setCategory(isAddCategoryOpen ? categories[categories.length - 1] : value);
 			}}
 		>
 			<SelectTrigger className="w-full">

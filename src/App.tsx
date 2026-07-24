@@ -7,7 +7,7 @@ export function App() {
 	return (
 		<Routes>
 			<Route
-				path="/"
+				path="/:category"
 				element={
 					<Layout>
 						<NotesHomePage />
@@ -15,7 +15,7 @@ export function App() {
 				}
 			/>
 
-			<Route path="/notes/:id" element={<NoteEditorPage />} />
+			<Route path="/note/:id" element={<NoteEditorPage />} />
 		</Routes>
 	);
 }

@@ -5,7 +5,7 @@
 - [x] - Turn the category Input into a Select/combobox populated from existing categories (plus an "add new" option) to prevent fragmentation.
 - [x] - Add autosave (debounced write on change) or at least a dirty-state check with a confirm-on-navigate for NotePage.
 - [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.
-- [ ] - Make the sideBar links with a react router
+- [x] - Make the sideBar links with a react router
 - [ ] - enhance side bar for mobile view
 
 
@@ -19,6 +19,7 @@
 - [ ] - Word/character count in the editor.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
 - [ ] - Persist store to localStorage/IndexedDB if it isn't already, so notes survive a refresh.
+- [ ] - Make the app exists in arabic and english
 
 ## Future Enhancements
 - [ ] - Add an Inline Compiler for tasks, lists, etc...

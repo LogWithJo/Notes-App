@@ -1,13 +1,15 @@
 import { type FormEvent, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { useNotesStore } from "@/stores/notes.store";
 
 export function useFilterNotes() {
-	const { notes: beforeInit, currentCategory, searchText } = useNotesStore();
+	const category = useParams();
+	const currentCategory = category.category
+	const { notes: beforeInit, searchText } = useNotesStore();
 	const filteredNotes = useMemo(() => {
-		return currentCategory === "all"
+		return currentCategory === "all" || !currentCategory
 			? beforeInit.filter((note) => !note.deleted)
 			: currentCategory === "trash"
 				? beforeInit.filter((note) => note.deleted)

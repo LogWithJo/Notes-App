@@ -1,6 +1,6 @@
 import { Separator } from "@base-ui/react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useNotesStore } from "@/stores/notes.store";
+import { useFilterNotes } from "@/hooks/hooks";
 import AddNoteDialog from "./AddNoteDialog";
 import NotesSection, {
 	NoNotesFound,
@@ -11,7 +11,7 @@ import { NotesHeader } from "./NotesHeader";
 import SearchBar from "./SearchBar";
 
 export default function NotesHomePage() {
-	const { notes } = useNotesStore();
+	const { notes } = useFilterNotes();
 	return (
 		<main>
 			<NotesHeader>

@@ -1,4 +1,5 @@
 import { Files, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
 	Sidebar,
 	SidebarContent,
@@ -11,7 +12,8 @@ import {
 import { useNotesStore } from "@/stores/notes.store";
 
 export function AppSidebar() {
-	const { notes, setCurrentCategory } = useNotesStore();
+	const navigate = useNavigate();
+	const { notes } = useNotesStore();
 	const categories = [
 		...new Set(
 			notes
@@ -21,7 +23,7 @@ export function AppSidebar() {
 		),
 	];
 	function handleClick(category: string) {
-		setCurrentCategory(category);
+		navigate(`/${category}`);
 	}
 	return (
 		<Sidebar>

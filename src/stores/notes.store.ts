@@ -7,12 +7,10 @@ export const useNotesStore = create<NotesStore>()(
 		persist(
 			(set) => ({
 				notes: [],
-				currentCategory: "all",
 				searchText: "",
 				categories: ["work", "personal"],
 				addNewCategory: (category) => {
 					set((state) => {
-						console.log([...new Set([...state.categories, ...category])]);
 						return {
 							categories: [...new Set([...state.categories, ...category])],
 						};
@@ -21,13 +19,7 @@ export const useNotesStore = create<NotesStore>()(
 				updateSearchText: (newVal) => {
 					set({ searchText: newVal });
 				},
-				setCurrentCategory: (category) => {
-					set(() => {
-						return { currentCategory: category, searchText: "" };
-					});
-				},
 				createNewNote: (title, category) => {
-					console.log(category);
 					set((state) => {
 						const newNotes = [
 							...state.notes,
