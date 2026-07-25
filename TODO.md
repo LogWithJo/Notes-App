@@ -18,7 +18,6 @@
 - [ ] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
 - [ ] - Word/character count in the editor.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
-- [ ] - Persist store to localStorage/IndexedDB if it isn't already, so notes survive a refresh.
 - [ ] - Make the app exists in arabic and english
 
 ## Future Enhancements

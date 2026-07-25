@@ -16,7 +16,7 @@ export default function NoteEditorHeader({ id }: { id: number }) {
 				<Button
 					onClick={() => {
 						if (isSaving) return;
-						navigate("/");
+						navigate("/all");
 					}}
 				>
 					<Save className="mr-2 size-4" />
