@@ -1,3 +1,3 @@
 export const SELECT_ALL_NOTES = "all"
-export const AR = "ar"
-export const EN = "en"
+export const AR: string = "ar"
+export const EN: string = "en"

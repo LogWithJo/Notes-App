@@ -1,6 +1,7 @@
+import { toast } from "sonner";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { NotesStore } from "@/lib/type";
+import type { NotesStore, NoteType } from "@/lib/type";
 
 export const useNotesStore = create<NotesStore>()(
 	devtools(
@@ -11,7 +12,7 @@ export const useNotesStore = create<NotesStore>()(
 				searchText: "",
 				categories: ["work", "personal"],
 				setLanguage: (lang) => {
-					set({language: lang})
+					set({ language: lang });
 				},
 				addNewCategory: (category) => {
 					set((state) => {
@@ -23,7 +24,7 @@ export const useNotesStore = create<NotesStore>()(
 				updateSearchText: (newVal) => {
 					set({ searchText: newVal });
 				},
-				createNewNote: (title, category, content, date) => {
+				createNewNote: (title, category, content, date, isPin) => {
 					set((state) => {
 						const newNotes = [
 							...state.notes,
@@ -31,7 +32,7 @@ export const useNotesStore = create<NotesStore>()(
 								id: Date.now(),
 								date: date || Date.now(),
 								title,
-								deleted: false,
+								isPin,
 								category,
 								content: content || "",
 							},
@@ -41,7 +42,10 @@ export const useNotesStore = create<NotesStore>()(
 				},
 				deleteNote: (id) => {
 					set((state) => {
-						return { notes: state.notes.filter(note => note.id !== id), searchText: "" };
+						return {
+							notes: state.notes.filter((note) => note.id !== id),
+							searchText: "",
+						};
 					});
 				},
 				editNote: (id, title, content) => {
@@ -52,6 +56,25 @@ export const useNotesStore = create<NotesStore>()(
 							...state.notes.filter((not) => not.id !== id),
 						];
 						return { notes: newNotes, searchText: "" };
+					});
+				},
+				togglePin: (id) => {
+					set((state) => {
+						const numberOfPins = state.notes.filter(
+							(note: NoteType) => note.isPin,
+						).length;
+						if (
+							numberOfPins >= 3 &&
+							!state.notes.find((note) => note.id === id)?.isPin // you want to pin (false => true)
+						) {
+							toast.error("only 3");
+							return {};
+						}
+						const newNotes = state.notes.map((note) => ({
+							...note,
+							isPin: note.id === id ? !note.isPin : note.isPin,
+						}));
+						return { notes: newNotes };
 					});
 				},
 			}),

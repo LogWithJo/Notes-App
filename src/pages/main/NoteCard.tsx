@@ -2,6 +2,7 @@ import {
 	ClockIcon,
 	FolderIcon,
 	MoreHorizontalIcon,
+	Pin,
 	Trash2Icon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -21,8 +22,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useHandleDeleteNote } from "@/hooks/hooks";
 import type { NoteType } from "@/lib/type";
+import { useNotesStore } from "@/stores/notes.store";
 
 export default function NoteCard({ note }: { note: NoteType }) {
+	const { togglePin } = useNotesStore();
 	const hasContent = note.content.trim().length > 0;
 	const handleDelete = useHandleDeleteNote(note.id);
 
@@ -45,8 +48,14 @@ export default function NoteCard({ note }: { note: NoteType }) {
 			<CardHeader className="gap-3 px-5 pt-5">
 				<div className="flex items-start justify-between gap-3">
 					<Link to={`/notes/${note.id}`} className="min-w-0 flex-1">
-						<CardTitle className="line-clamp-2 text-lg leading-snug transition-colors group-hover:text-primary">
+						<CardTitle className="line-clamp-2 flex gap-4 text-lg leading-snug transition-colors group-hover:text-primary">
 							{note.title}
+
+							{note.isPin && (
+								<div className="flex justify-center items-center">
+									<Pin className="size-4 " />
+								</div>
+							)}
 						</CardTitle>
 					</Link>
 
@@ -64,6 +73,15 @@ export default function NoteCard({ note }: { note: NoteType }) {
 							>
 								<Trash2Icon className="size-4" />
 								Delete
+							</DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={() => {
+									togglePin(note.id);
+								}}
+								className="cursor-pointer"
+							>
+								<Trash2Icon className="size-4" />
+								{note.isPin ? "unPin" : "Pin"}
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>

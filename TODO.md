@@ -11,8 +11,9 @@
 
 ## Enhancements
 - [x] - Undo toast after delete ("Note deleted — Undo") instead of relying solely on the trash/restore flow.
-- [ ] - Sort options for the grid (last edited, title A–Z, category).
-- [ ] - Pin/favorite notes.
+- [ ] - make a color pallete for the website
+- [ ] - Sort options for the grid (last edited, title A–Z).
+- [x] - Pin/favorite notes.
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).

@@ -10,11 +10,13 @@ export function useFilterNotes() {
 	const category = useParams();
 	const currentCategory = category.category;
 	const { notes: beforeInit, searchText } = useNotesStore();
+
 	const filteredNotes = useMemo(() => {
 		return currentCategory === SELECT_ALL_NOTES || !currentCategory
 			? beforeInit
 			: beforeInit.filter((note) => note.category === currentCategory);
 	}, [beforeInit, currentCategory]);
+
 	const searchedNotes = useMemo(() => {
 		return filteredNotes.filter((note) =>
 			note.title.toLowerCase().includes(searchText.toLowerCase()),
@@ -22,9 +24,13 @@ export function useFilterNotes() {
 	}, [filteredNotes, searchText]);
 
 	const isSearching = searchText.trim().length > 0;
+
 	const notes: NoteType[] = useMemo(() => {
-		return isSearching ? searchedNotes : filteredNotes;
+		return isSearching
+			? searchedNotes.sort((a, b) => Number(b.isPin) - Number(a.isPin))
+			: filteredNotes.sort((a, b) => Number(b.isPin) - Number(a.isPin));
 	}, [isSearching, searchedNotes, filteredNotes]);
+
 	return { isSearching, notes };
 }
 
@@ -157,6 +163,7 @@ export function useHandleDeleteNote(id: number) {
 						deletedNote.category,
 						deletedNote.content,
 						deletedNote.date,
+						deletedNote.isPin
 					);
 				},
 			},

@@ -22,11 +22,12 @@ export function CategorySelect() {
 	);
 	return (
 		<Select
-			items={categoryItems}
-			value={category}
+			value={category ? category : categories[categories.length - 1]}
 			onValueChange={(value) => {
 				if (typeof value !== "string") return;
-				setCategory(isAddCategoryOpen ? categories[categories.length - 1] : value);
+				setCategory(
+					isAddCategoryOpen ? categories[categories.length - 1] : value,
+				);
 			}}
 		>
 			<SelectTrigger className="w-full">

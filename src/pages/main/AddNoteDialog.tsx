@@ -72,9 +72,6 @@ export default function AddNoteDialog() {
 								) : (
 									<CategorySelectField />
 								)}
-								<FieldDescription>
-									Optional. Leave blank for uncategorized.
-								</FieldDescription>
 							</Field>
 						</FieldGroup>
 
