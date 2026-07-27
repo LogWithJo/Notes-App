@@ -36,10 +36,12 @@ export default function AddNoteDialog() {
 				toggleIsOpen(e);
 			}}
 		>
-			<DialogTrigger render={<Button size="lg" className="shadow-sm" />}>
-				<PlusIcon className="size-4" />
-				<span className="hidden sm:inline">Add new note</span>
-				<span className="sm:hidden">New</span>
+			<DialogTrigger>
+				<Button>
+					<PlusIcon className="size-4" />
+					<span className="hidden sm:inline">Add new note</span>
+					<span className="sm:hidden">New</span>
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<form onSubmit={handleSubmit}>

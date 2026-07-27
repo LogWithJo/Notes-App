@@ -1,5 +1,6 @@
 import { FileTextIcon, SearchXIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
 import {
 	Card,
@@ -18,6 +19,7 @@ export default function NotesSection({ children }: { children: ReactNode }) {
 
 export function NotesResultsHeader() {
 	const { isSearching, notes } = useFilterNotes();
+	const { t } = useTranslation();
 	const { searchText } = useNotesStore();
 	return (
 		<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -27,7 +29,7 @@ export function NotesResultsHeader() {
 						<FileTextIcon className="size-4 text-muted-foreground" />
 					</div>
 					<h2 className="text-2xl font-semibold tracking-tight text-foreground">
-						Notes
+						{t("welcome")}
 					</h2>
 				</div>
 				<p className="max-w-xl text-sm text-muted-foreground">

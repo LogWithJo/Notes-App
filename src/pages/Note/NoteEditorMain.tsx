@@ -11,7 +11,7 @@ export default function NoteEditorMain({ id }: { id: number }) {
 			<Card className="shadow-lg">
 				<CardHeader className="pb-4">
 					<CardTitle className="text-muted-foreground text-sm">
-						Note Editor
+						Note Editor | Words length: {content.split(" ").filter(word => !!word).length} | Characters length: {content.split("").filter(char => char !== " ").length}
 					</CardTitle>
 				</CardHeader>
 

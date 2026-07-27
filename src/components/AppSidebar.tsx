@@ -1,5 +1,5 @@
-import { Files, Trash2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Files } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
 	Sidebar,
 	SidebarContent,
@@ -9,17 +9,16 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { SELECT_ALL_NOTES } from "@/lib/constants";
 import { useNotesStore } from "@/stores/notes.store";
 
 export function AppSidebar() {
+	const category = useParams();
 	const navigate = useNavigate();
 	const { notes } = useNotesStore();
 	const categories = [
 		...new Set(
-			notes
-				.filter((note) => !note.deleted)
-				.map((note) => note.category)
-				.filter((categ) => categ !== ""),
+			notes.map((note) => note.category).filter((categ) => categ !== ""),
 		),
 	];
 	function handleClick(category: string) {
@@ -33,6 +32,7 @@ export function AppSidebar() {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton
+								isActive={category.category === SELECT_ALL_NOTES}
 								onClick={() => {
 									handleClick("all");
 								}}
@@ -41,22 +41,15 @@ export function AppSidebar() {
 								<span>All</span>
 							</SidebarMenuButton>
 
-							<SidebarMenuButton
-								onClick={() => {
-									handleClick("trash");
-								}}
-							>
-								<Trash2 className="size-4" />
-								<span>Trash</span>
-							</SidebarMenuButton>
 							<SidebarHeader>Categories</SidebarHeader>
 							{categories.length > 0 ? (
 								categories.map((note) => (
 									<SidebarMenuButton
+										isActive={category.category === note}
 										key={note}
 										onClick={() => handleClick(note)}
 									>
-										{note}
+										{note.toUpperCase()}
 									</SidebarMenuButton>
 								))
 							) : (

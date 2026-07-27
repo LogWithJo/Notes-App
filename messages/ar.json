@@ -1,0 +1,46 @@
+{
+	"RootLayout": {
+		"metaData": {
+			"desc": "Notes App"
+		}
+	},
+	"HomePage": {
+		"SideBar": {
+			"heading": "Categories"
+		},
+		"Header": {
+			"search": "Search",
+			"title": "الملاحظات",
+			"description": "Recent notes, sorted into a clean workspace.",
+			"addDialog": {
+				"button": "Add new note",
+				"dialogHeader": "New note",
+				"dialogDescription": "Fill title and category, then submit.",
+				"inputTitle": {
+					"title": "Title",
+					"placeholder": "My first note"
+				},
+				"CategoryInput": {
+					"title": "Category",
+					"placeholder": "Work | Personal",
+					"button": "Add Category",
+					"Description": "Optional. Leave blank for uncategorized."
+				},
+				"submitButton": "Create"
+			}
+		}
+	},
+    "NotesPage": {
+        "Header": {
+            "draft": "Draft",
+            "loading": "Saving",
+            "loaded": "Saved",
+            "button": "saved"
+        },
+        "Main": {
+            "EditorHeading": "Note Editor",
+            "word": "Words length",
+            "characters": "Characters length"
+        }
+    }
+}

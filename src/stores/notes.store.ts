@@ -6,9 +6,13 @@ export const useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
+				language: "en",
 				notes: [],
 				searchText: "",
 				categories: ["work", "personal"],
+				setLanguage: (lang) => {
+					set({language: lang})
+				},
 				addNewCategory: (category) => {
 					set((state) => {
 						return {
@@ -19,17 +23,17 @@ export const useNotesStore = create<NotesStore>()(
 				updateSearchText: (newVal) => {
 					set({ searchText: newVal });
 				},
-				createNewNote: (title, category) => {
+				createNewNote: (title, category, content, date) => {
 					set((state) => {
 						const newNotes = [
 							...state.notes,
 							{
 								id: Date.now(),
-								date: Date.now(),
+								date: date || Date.now(),
 								title,
 								deleted: false,
 								category,
-								content: "",
+								content: content || "",
 							},
 						];
 						return { notes: newNotes, searchText: "" };
@@ -37,17 +41,7 @@ export const useNotesStore = create<NotesStore>()(
 				},
 				deleteNote: (id) => {
 					set((state) => {
-						const newNotes = state.notes.map((note) => ({
-							...note,
-							deleted: note.id === id ? !note.deleted : note.deleted,
-						}));
-						return { notes: newNotes, searchText: "" };
-					});
-				},
-				deleteNoteForEver: (id) => {
-					set((state) => {
-						const newNotes = state.notes.filter((note) => note.id !== id);
-						return { notes: newNotes, searchText: "" };
+						return { notes: state.notes.filter(note => note.id !== id), searchText: "" };
 					});
 				},
 				editNote: (id, title, content) => {

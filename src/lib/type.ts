@@ -2,20 +2,21 @@ export interface NoteType {
 	id: number;
 	date: number;
 	title: string;
-	deleted: boolean;
 	category: string;
 	content: string;
 }
 
+export type AvailableLang = "en" | "ar";
 export interface NotesStore {
+	language: AvailableLang;
 	notes: NoteType[];
 	categories: string[];
 	searchText: string;
+	setLanguage: (lang: AvailableLang) => void;
 	addNewCategory: (category: string[]) => void;
 	updateSearchText: (newVal: string) => void;
-	createNewNote: (title: string, category: string) => void;
+	createNewNote: (title: string, category: string, content?: string, date?: number) => void;
 	deleteNote: (id: number) => void;
-	deleteNoteForEver: (id: number) => void;
 	editNote: (id: number, title: string, content: string) => void;
 }
 

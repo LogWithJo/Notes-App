@@ -1,19 +1,19 @@
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
+import { SELECT_ALL_NOTES } from "@/lib/constants";
 import type { NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { useNotesStore } from "@/stores/notes.store";
 
 export function useFilterNotes() {
 	const category = useParams();
-	const currentCategory = category.category
+	const currentCategory = category.category;
 	const { notes: beforeInit, searchText } = useNotesStore();
 	const filteredNotes = useMemo(() => {
-		return currentCategory === "all" || !currentCategory
-			? beforeInit.filter((note) => !note.deleted)
-			: currentCategory === "trash"
-				? beforeInit.filter((note) => note.deleted)
-				: beforeInit.filter((note) => note.category === currentCategory);
+		return currentCategory === SELECT_ALL_NOTES || !currentCategory
+			? beforeInit
+			: beforeInit.filter((note) => note.category === currentCategory);
 	}, [beforeInit, currentCategory]);
 	const searchedNotes = useMemo(() => {
 		return filteredNotes.filter((note) =>
@@ -45,9 +45,7 @@ export function useAddNoteDialogOnSubmit() {
 	const isDuplicateTitle = useMemo(() => {
 		if (!titleTrimmed) return false;
 		return notes.some(
-			(note) =>
-				!note.deleted &&
-				note.title.toLowerCase() === titleTrimmed.toLowerCase(),
+			(note) => note.title.toLowerCase() === titleTrimmed.toLowerCase(),
 		);
 	}, [titleTrimmed, notes]);
 
@@ -107,8 +105,8 @@ export function useAddCategoryFieldData() {
 export function useNotePageData(id: number) {
 	const navigate = useNavigate();
 	const { notes, editNote } = useNotesStore();
-	const [isSaving, setIsSaving] = useState(false);
 	const [note] = notes.filter((not) => Number(not.id) === Number(id));
+	const [isSaving, setIsSaving] = useState(false);
 	const [title, setTitle] = useState(note.title);
 	const [content, setContent] = useState(note.content);
 
@@ -137,4 +135,32 @@ export function useNotePageData(id: number) {
 		setTitle,
 		setContent,
 	};
+}
+
+export function useHandleDeleteNote(id: number) {
+	const { notes, deleteNote, createNewNote } = useNotesStore();
+	const deletedNote: NoteType | undefined = notes.find(
+		(note) => note.id === id,
+	);
+
+	function hadnleDelete() {
+		deleteNote(id);
+
+		toast.success("Note deleted", {
+			duration: 5000,
+			action: {
+				label: "Undo",
+				onClick: () => {
+					if (!deletedNote) return;
+					createNewNote(
+						deletedNote.title,
+						deletedNote.category,
+						deletedNote.content,
+						deletedNote.date,
+					);
+				},
+			},
+		});
+	}
+	return hadnleDelete;
 }
