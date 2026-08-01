@@ -6,6 +6,7 @@
 	},
 	"Header": {
 		"search": "Search",
+		"language": "change Lnaguage",
 		"addNoteDialog": {
 			"toggleButton": "Add new note",
 			"title": "New note",

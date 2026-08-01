@@ -4,26 +4,26 @@
 - [x] - Add a confirmation (AlertDialog from shadcn works well here) before permanent delete.
 - [x] - Turn the category Input into a Select/combobox populated from existing categories (plus an "add new" option) to prevent fragmentation.
 - [x] - Add autosave (debounced write on change) or at least a dirty-state check with a confirm-on-navigate for NotePage.
-- [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.no
 - [x] - Make the sideBar links with a react router
-- [ ] - enhance side bar for mobile view
-- [ ] - block saving if the user remvoes the note title
-- [ ] - fix uncategriezed bug
+- [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.no
+- [ ] - enhance ui for mobile
+
+## Bugs
+- [x] - fix uncategriezed bug
 - [ ] - fix untitled or uncontent note bug
 - [ ] - save preferd lang
 
-
 ## Enhancements
 - [x] - Undo toast after delete ("Note deleted — Undo") instead of relying solely on the trash/restore flow.
+- [x] - Pin/favorite notes.
+- [x] - Word/character count in the editor.
+- [x] - Make the app exists in arabic and english
 - [ ] - make a color pallete for the website
 - [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
-- [x] - Pin/favorite notes.
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
-- [x] - Word/character count in the editor.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
-- [x] - Make the app exists in arabic and english
 
 ## Future Enhancements
 - [ ] - Add an Inline Compiler for tasks, lists, etc...

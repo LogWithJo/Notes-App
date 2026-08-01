@@ -44,7 +44,7 @@ export default function AddNoteDialog() {
 				toggleIsOpen(e);
 			}}
 		>
-			<DialogTrigger>
+			<DialogTrigger asChild>
 				<Button>
 					<PlusIcon className="size-4" />
 					<span className="hidden jmd:block">{trans("toggleButton")}</span>

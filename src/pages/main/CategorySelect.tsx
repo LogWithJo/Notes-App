@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 import {
 	Select,
 	SelectContent,
@@ -20,9 +20,15 @@ export function CategorySelect() {
 			value: category,
 		}),
 	);
+	const lastCategory = categories.at(-1);
+	useEffect(() => {
+		if (!category && lastCategory) {
+			setCategory(lastCategory);
+		}
+	}, [category, lastCategory, setCategory]);
 	return (
 		<Select
-			value={category ? category : categories[categories.length - 1]}
+			value={category}
 			onValueChange={(value) => {
 				if (typeof value !== "string") return;
 				setCategory(

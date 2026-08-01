@@ -6,6 +6,7 @@
 	},
 	"Header": {
 		"search": "ابحث...",
+		"language": "تغيير اللغة",
 		"addNoteDialog": {
 			"toggleButton": "مذكرة جديدة",
 			"title": "إنشاء مذكرة جديدة",

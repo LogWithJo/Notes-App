@@ -1,10 +1,11 @@
-import { type FormEvent, useEffect, useMemo, useState } from "react";
+import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import i18n from "@/i18n";
 import { AR, EN, SELECT_ALL_NOTES } from "@/lib/constants";
 import type { AvailableLang, NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
+import { useNotePage } from "@/stores/notePage.store";
 import { useNotesStore } from "@/stores/notes.store";
 
 export function useFilterNotes() {
@@ -111,21 +112,59 @@ export function useAddCategoryFieldData() {
 
 export function useNotePageData(id: number) {
 	const navigate = useNavigate();
-	const { notes, editNote } = useNotesStore();
-	const [note] = notes.filter((not) => Number(not.id) === Number(id));
-	const [isSaving, setIsSaving] = useState(false);
-	const [title, setTitle] = useState(note.title);
-	const [content, setContent] = useState(note.content);
 
-	if (note === undefined) {
-		navigate("/");
-	}
+	const { title, content, loadNote, setIsSaving } = useNotePage();
+
+	const { notes, editNote } = useNotesStore();
+
+	const firstRender = useRef(true);
+	const note = notes.find((n) => Number(n.id) === Number(id));
+
+	// The note id we last loaded, so we can flush its pending edits when we
+	// switch to another note or leave the page.
+	const loadedId = useRef<number | null>(null);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: reload only when the route id changes
+	useEffect(() => {
+		// Flush pending edits for the previously open note before switching.
+		const prevId = loadedId.current;
+		if (prevId !== null && prevId !== Number(id)) {
+			const prevNote = useNotesStore
+				.getState()
+				.notes.find((n) => Number(n.id) === prevId);
+			if (
+				prevNote &&
+				(title !== prevNote.title || content !== prevNote.content)
+			) {
+				editNote(prevId, title, content);
+			}
+		}
+
+		if (!note) {
+			navigate("/");
+			return;
+		}
+
+		loadedId.current = Number(note.id);
+		loadNote(note);
+	}, [id]);
 
 	useEffect(() => {
-		function load() {
-			setIsSaving(true);
+		if (!note) return;
+
+		if (firstRender.current) {
+			firstRender.current = false;
+			return;
 		}
-		load();
+
+		// Ignore the run triggered by `loadNote` — the editor is already in
+		// sync with the note, so we must not save or flip the saving state.
+		// This guard also stops the "Saving..." loop: after `editNote` replaces
+		// the note object, `note` changes and re-runs this effect, but the
+		// values match, so we bail out instead of starting another save.
+		if (title === note.title && content === note.content) return;
+
+		setIsSaving(true);
 
 		const timeout = setTimeout(() => {
 			editNote(Number(id), title, content);
@@ -133,15 +172,28 @@ export function useNotePageData(id: number) {
 		}, 3000);
 
 		return () => clearTimeout(timeout);
-	}, [content, id, editNote, title]);
-	return {
-		isSaving,
-		title,
-		content,
-		navigate,
-		setTitle,
-		setContent,
-	};
+	}, [title, content, id, note, editNote, setIsSaving]);
+
+	// Flush any pending edits when leaving the page, so the latest changes
+	// are never lost (the debounce timer would otherwise just be cancelled).
+	useEffect(() => {
+		return () => {
+			const prevId = loadedId.current;
+			if (prevId === null) return;
+
+			const { title: currentTitle, content: currentContent } =
+				useNotePage.getState();
+			const prevNote = useNotesStore
+				.getState()
+				.notes.find((n) => Number(n.id) === prevId);
+			if (
+				prevNote &&
+				(currentTitle !== prevNote.title || currentContent !== prevNote.content)
+			) {
+				editNote(prevId, currentTitle, currentContent);
+			}
+		};
+	}, [editNote]);
 }
 
 export function useHandleDeleteNote(id: number) {

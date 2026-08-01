@@ -2,11 +2,11 @@ import { Separator } from "@base-ui/react";
 import { useTranslation } from "react-i18next";
 import TextareaAutosize from "react-textarea-autosize";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNotePageData } from "@/hooks/hooks";
+import { useNotePage } from "@/stores/notePage.store";
 
-export default function NoteEditorMain({ id }: { id: number }) {
+export default function NoteEditorMain() {
 	const { t } = useTranslation();
-	const { title, content, setTitle, setContent } = useNotePageData(id);
+	const { title, content, setTitle, setContent } = useNotePage();
 	return (
 		<main className="mx-auto w-full max-w-5xl p-6">
 			<Card className="shadow-lg">
