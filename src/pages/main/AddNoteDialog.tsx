@@ -47,8 +47,7 @@ export default function AddNoteDialog() {
 			<DialogTrigger>
 				<Button>
 					<PlusIcon className="size-4" />
-					<span className="hidden sm:inline">{trans("toggleButton")}</span>
-					<span className="sm:hidden">{trans("title")}</span>
+					<span className="hidden jmd:block">{trans("toggleButton")}</span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent showCloseButton={false}>

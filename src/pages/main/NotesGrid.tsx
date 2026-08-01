@@ -87,7 +87,7 @@ export function NoNotesFound() {
 export function NotesGrid() {
 	const { notes } = useFilterNotes();
 	return (
-		<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
+		<div className="grid grid-cols-2 p-4 gap-4 lg:grid-cols-3 xl:gap-5">
 			{notes.map((note) => (
 				<NoteCard key={note.id} note={note} />
 			))}
