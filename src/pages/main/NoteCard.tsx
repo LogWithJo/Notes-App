@@ -5,6 +5,7 @@ import {
 	Pin,
 	Trash2Icon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -20,11 +21,13 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useHandleDeleteNote } from "@/hooks/hooks";
+import { useHandleDeleteNote, useLang } from "@/hooks/hooks";
 import type { NoteType } from "@/lib/type";
 import { useNotesStore } from "@/stores/notes.store";
 
 export default function NoteCard({ note }: { note: NoteType }) {
+	const { t } = useTranslation();
+	const { lang } = useLang();
 	const { togglePin } = useNotesStore();
 	const hasContent = note.content.trim().length > 0;
 	const handleDelete = useHandleDeleteNote(note.id);
@@ -36,11 +39,16 @@ export default function NoteCard({ note }: { note: NoteType }) {
 		const diffTime = now.getTime() - then.getTime();
 		const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-		if (diffDays === 0) return "Today";
-		if (diffDays === 1) return "Yesterday";
-		if (diffDays < 30) return `${diffDays} days ago`;
+		if (diffDays === 0) return trans("time.today");
+		if (diffDays === 1) return trans("time.yesterday");
+		if (diffDays < 30) return `${diffDays} ${trans("time.days")}`;
 
 		return then.toLocaleDateString();
+	}
+
+	function trans(dir: string) {
+		const text = t(`NotesGrid.NoteCard.${dir}`);
+		return text;
 	}
 
 	return (
@@ -67,21 +75,23 @@ export default function NoteCard({ note }: { note: NoteType }) {
 
 						<DropdownMenuContent align="end" className="w-36">
 							<DropdownMenuItem
+								dir={lang === "ar" ? "rtl" : "ltr"}
 								onClick={handleDelete}
 								variant="destructive"
 								className="cursor-pointer"
 							>
 								<Trash2Icon className="size-4" />
-								Delete
+								{trans("dropDown.delete")}
 							</DropdownMenuItem>
 							<DropdownMenuItem
+								dir={lang === "ar" ? "rtl" : "ltr"}
 								onClick={() => {
 									togglePin(note.id);
 								}}
 								className="cursor-pointer"
 							>
-								<Trash2Icon className="size-4" />
-								{note.isPin ? "unPin" : "Pin"}
+								<Pin className="size-4" />
+								{note.isPin ? trans("dropDown.pin") : trans("dropDown.unPin")}
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
@@ -95,10 +105,13 @@ export default function NoteCard({ note }: { note: NoteType }) {
 				</div>
 			</CardHeader>
 
-			<Link to={`/note/${note.id}`} className="flex flex-1 flex-col">
+			<Link
+				to={`/note/${lang || "en"}/${note.id}`}
+				className="flex flex-1 flex-col"
+			>
 				<CardContent className="flex-1 px-5 pb-5">
 					<p className="line-clamp-4 min-h-20 text-sm leading-6 text-muted-foreground">
-						{hasContent ? note.content : "No content yet."}
+						{hasContent ? note.content : trans("NoContent")}
 					</p>
 				</CardContent>
 			</Link>

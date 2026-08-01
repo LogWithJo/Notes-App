@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { useFilterNotes } from "@/hooks/hooks";
+import { useFilterNotes, useLang } from "@/hooks/hooks";
 import { useNotesStore } from "@/stores/notes.store";
 import NoteCard from "./NoteCard";
 
@@ -18,9 +18,14 @@ export default function NotesSection({ children }: { children: ReactNode }) {
 }
 
 export function NotesResultsHeader() {
-	const { isSearching, notes } = useFilterNotes();
 	const { t } = useTranslation();
+	const { isSearching, notes } = useFilterNotes();
 	const { searchText } = useNotesStore();
+	const { lang } = useLang();
+	function trans(direction: string) {
+		const text = t(`NotesGrid.Header.${direction}`);
+		return text;
+	}
 	return (
 		<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 			<div className="space-y-1.5">
@@ -29,31 +34,33 @@ export function NotesResultsHeader() {
 						<FileTextIcon className="size-4 text-muted-foreground" />
 					</div>
 					<h2 className="text-2xl font-semibold tracking-tight text-foreground">
-						{t("welcome")}
+						{trans("notes")}
 					</h2>
 				</div>
 				<p className="max-w-xl text-sm text-muted-foreground">
 					{isSearching ? (
 						<span>
-							Results for
+							{trans("resultsFor")}
 							<span className="font-medium text-foreground">
 								“{searchText.trim()}”
 							</span>
 						</span>
 					) : (
-						"Recent notes, sorted into a clean workspace."
+						<span>{trans("description")}</span>
 					)}
 				</p>
 			</div>
 
 			<Badge variant="secondary" className="h-7 rounded-full px-3">
-				{notes.length} note{notes.length === 1 ? "" : "s"}
+				{notes.length} {trans("notes")}
+				{lang === "en" ? (notes.length === 1 ? "" : "s") : ""}
 			</Badge>
 		</div>
 	);
 }
 
 export function NoNotesFound() {
+	const {t} = useTranslation()
 	const { isSearching } = useFilterNotes();
 	return (
 		<Card className="border-dashed bg-muted/20 shadow-none">
@@ -61,7 +68,7 @@ export function NoNotesFound() {
 				<div className="mb-2 flex size-12 items-center justify-center rounded-full border bg-background">
 					<SearchXIcon className="size-5 text-muted-foreground" />
 				</div>
-				<CardTitle>No notes found</CardTitle>
+				<CardTitle>{t("NotesGrid.NotFound")}</CardTitle>
 				<CardDescription>
 					{isSearching
 						? "Try a different search."

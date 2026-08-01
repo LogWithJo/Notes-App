@@ -1,4 +1,5 @@
 import { SearchIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Field } from "@/components/ui/field";
 import {
 	InputGroup,
@@ -8,6 +9,7 @@ import {
 import { useNotesStore } from "@/stores/notes.store";
 
 export default function SearchBar() {
+	const { t } = useTranslation();
 	const { searchText, updateSearchText } = useNotesStore();
 	return (
 		<div>
@@ -19,7 +21,7 @@ export default function SearchBar() {
 							updateSearchText(e.target.value);
 						}}
 						id="inline-start-input"
-						placeholder="Search..."
+						placeholder={t("Header.search")}
 					/>
 					<InputGroupAddon align="inline-start">
 						<SearchIcon className="text-muted-foreground"></SearchIcon>

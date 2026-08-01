@@ -1,3 +1,58 @@
 {
-    "welcome": "welcome"
+	"SideBar": {
+		"heading": "Categories",
+		"all": "all",
+		"NotFound": "No categories"
+	},
+	"Header": {
+		"search": "Search",
+		"addNoteDialog": {
+			"toggleButton": "Add new note",
+			"title": "New note",
+			"description": "Fill title and category, then submit.",
+			"titleInput": {
+				"title": "title",
+				"required": "This is required",
+				"placeholder": "My first note"
+			},
+			"categoryInput": {
+				"title": "category",
+				"placeholder": "Work | Personal",
+				"button": "Add Category"
+			},
+			"submitButton": "Create"
+		}
+	},
+	"NotesGrid": {
+		"Header": {
+			"notes": "notes",
+			"resultsFor": "resultsFor",
+			"description": "Recent notes, sorted into a clean workspace."
+		},
+		"NotFound": "No notes found",
+		"NoteCard": {
+			"NoContent": "No content yet.",
+			"dropDown": {
+				"delete": "delete",
+				"pin": "pin",
+				"unPin": "unPin"
+			},
+			"time": {
+				"today": "today",
+				"yesterday": "yesterday",
+				"days": "days"
+			}
+		}
+	},
+	"NotePage": {
+		"draft": "draft",
+		"saving": "saving",
+		"saved": "saved",
+		"save": "save",
+		"noteEditor": "noteEditor",
+		"words": "Words length",
+		"untitled": "unTitled Note",
+		"characters": "Characters length",
+		"placeholder": "Start writing"
+	}
 }

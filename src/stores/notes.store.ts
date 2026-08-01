@@ -7,13 +7,9 @@ export const useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
-				language: "en",
 				notes: [],
-				searchText: "",
 				categories: ["work", "personal"],
-				setLanguage: (lang) => {
-					set({ language: lang });
-				},
+				searchText: "",
 				addNewCategory: (category) => {
 					set((state) => {
 						return {
@@ -32,7 +28,7 @@ export const useNotesStore = create<NotesStore>()(
 								id: Date.now(),
 								date: date || Date.now(),
 								title,
-								isPin,
+								isPin: isPin || false,
 								category,
 								content: content || "",
 							},

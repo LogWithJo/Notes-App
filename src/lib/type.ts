@@ -9,11 +9,9 @@ export interface NoteType {
 
 export type AvailableLang = "en" | "ar";
 export interface NotesStore {
-	language: AvailableLang;
 	notes: NoteType[];
 	categories: string[];
 	searchText: string;
-	setLanguage: (lang: AvailableLang) => void;
 	addNewCategory: (category: string[]) => void;
 	updateSearchText: (newVal: string) => void;
 	createNewNote: (title: string, category: string, content?: string, date?: number, isPin?: boolean) => void;

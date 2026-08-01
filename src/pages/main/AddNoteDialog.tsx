@@ -1,4 +1,5 @@
 import { ArrowLeft, PlusIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -14,11 +15,17 @@ import { Input } from "@/components/ui/input";
 import {
 	useAddCategoryFieldData,
 	useAddNoteDialogOnSubmit,
+	useLang,
 } from "@/hooks/hooks";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { CategorySelect } from "./CategorySelect";
 
 export default function AddNoteDialog() {
+	const { t } = useTranslation();
+	function trans(direction: string) {
+		const text = t(`Header.addNoteDialog.${direction}`);
+		return text;
+	}
 	const {
 		titleError,
 		isOpen,
@@ -28,6 +35,7 @@ export default function AddNoteDialog() {
 		isAddCategoryOpen,
 	} = useAddNoteDialogStore();
 	const { handleSubmit } = useAddNoteDialogOnSubmit();
+	const { lang } = useLang();
 
 	return (
 		<Dialog
@@ -39,34 +47,42 @@ export default function AddNoteDialog() {
 			<DialogTrigger>
 				<Button>
 					<PlusIcon className="size-4" />
-					<span className="hidden sm:inline">Add new note</span>
-					<span className="sm:hidden">New</span>
+					<span className="hidden sm:inline">{trans("toggleButton")}</span>
+					<span className="sm:hidden">{trans("title")}</span>
 				</Button>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent showCloseButton={false}>
 				<form onSubmit={handleSubmit}>
 					<FieldSet>
-						<FieldLegend>New note</FieldLegend>
-						<FieldDescription>
-							Fill title and category, then submit.
+						<FieldLegend>{trans("title")}</FieldLegend>
+						<FieldDescription
+							className={lang === "ar" ? "text-right" : "text-left"}
+						>
+							{trans("description")}
 						</FieldDescription>
 
 						<FieldGroup>
 							<Field>
-								<FieldLabel htmlFor="note-title">Title</FieldLabel>
+								<FieldLabel htmlFor="note-title">
+									{trans("titleInput.title")}
+								</FieldLabel>
 								<Input
 									id="note-title"
 									autoComplete="off"
-									placeholder="My first note"
+									placeholder={trans("titleInput.placeholder")}
 									value={title}
 									onChange={(e) => setTitle(e.target.value)}
 									aria-invalid={!!titleError}
 								/>
-								{titleError && <FieldError>{titleError}</FieldError>}
+								{titleError && (
+									<FieldError>{trans("titleInput.required")}</FieldError>
+								)}
 							</Field>
 
 							<Field>
-								<FieldLabel htmlFor="note-category">Category</FieldLabel>
+								<FieldLabel htmlFor="note-category">
+									{trans("categoryInput.title")}
+								</FieldLabel>
 								{isAddCategoryOpen ? (
 									<AddCategoryInputField />
 								) : (
@@ -76,7 +92,7 @@ export default function AddNoteDialog() {
 						</FieldGroup>
 
 						<div className="mt-4 flex justify-end">
-							<Button type="submit">Create</Button>
+							<Button type="submit">{trans("submitButton")}</Button>
 						</div>
 					</FieldSet>
 				</form>

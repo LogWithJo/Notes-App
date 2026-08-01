@@ -1,19 +1,11 @@
 import { Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import i18n from "@/i18n";
-import { AR, EN } from "@/lib/constants";
-import { useNotesStore } from "@/stores/notes.store";
+import { useLang } from "@/hooks/hooks";
 
 function LangToggle() {
-	const { language, setLanguage } = useNotesStore();
+	const { toggleLang } = useLang();
 	return (
-		<Button
-			onClick={() => {
-				const newLang = language === AR ? EN : AR;
-				setLanguage(newLang);
-				i18n.changeLanguage(newLang);
-			}}
-		>
+		<Button onClick={toggleLang}>
 			<Languages />
 		</Button>
 	);

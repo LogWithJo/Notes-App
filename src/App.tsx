@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./Layout";
 import NotesHomePage from "./pages/main/NotesAppHomePage";
 import NoteEditorPage from "./pages/Note/NotePage";
@@ -6,8 +6,9 @@ import NoteEditorPage from "./pages/Note/NotePage";
 export function App() {
 	return (
 		<Routes>
+			<Route index element={<Navigate to={"/notes/en/all"} replace />} />
 			<Route
-				path="/:category"
+				path="/notes/:lang/:category"
 				element={
 					<Layout>
 						<NotesHomePage />
@@ -15,7 +16,7 @@ export function App() {
 				}
 			/>
 
-			<Route path="/note/:id" element={<NoteEditorPage />} />
+			<Route path="/note/:lang/:id" element={<NoteEditorPage />} />
 		</Routes>
 	);
 }

@@ -1,3 +1,58 @@
 {
-    "welcome": "مرحبا"
+	"SideBar": {
+		"heading": "الفئات",
+		"all": "الكل",
+		"NotFound": "لا توجد فئات"
+	},
+	"Header": {
+		"search": "ابحث...",
+		"addNoteDialog": {
+			"toggleButton": "مذكرة جديدة",
+			"title": "إنشاء مذكرة جديدة",
+			"description": "أدخل عنوان المذكرة واختر فئة، ثم اضغط على زر الإنشاء.",
+			"titleInput": {
+				"title": "العنوان",
+				"required": "هذا الحقل مطلوب",
+				"placeholder": "مذكرتي الأولى"
+			},
+			"categoryInput": {
+				"title": "الفئة",
+				"placeholder": "شخصي، عمل...",
+				"button": "إضافة فئة جديدة"
+			},
+			"submitButton": "إنشاء"
+		}
+	},
+	"NotesGrid": {
+		"Header": {
+			"notes": "المذكرات",
+			"resultsFor": "نتائج البحث عن",
+			"description": "جميع مذكراتك مرتبة ومنظمة لتسهيل الوصول إليها."
+		},
+		"NotFound": "لا توجد مذكرات",
+		"NoteCard": {
+			"NoContent": "لا يوجد محتوى بعد.",
+			"dropDown": {
+				"delete": "حذف",
+				"pin": "تثبيت",
+				"unPin": "إلغاء التثبيت"
+			},
+			"time": {
+				"today": "اليوم",
+				"yesterday": "أمس",
+				"days": "أيام"
+			}
+		}
+	},
+	"NotePage": {
+		"draft": "مسودة",
+		"saving": "جارٍ الحفظ...",
+		"saved": "تم الحفظ",
+		"save": "حفظ",
+		"noteEditor": "محرر الملاحظات",
+		"words": "عدد الكلمات",
+		"characters": "عدد الأحرف",
+		"untitled": "مذكرة بدون عنوان",
+		"placeholder": "ابدأ بكتابة أفكارك أو ملاحظاتك هنا..."
+	}
 }

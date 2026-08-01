@@ -1,5 +1,6 @@
 import { Files } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import {
 	Sidebar,
 	SidebarContent,
@@ -9,11 +10,13 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useLang } from "@/hooks/hooks";
 import { SELECT_ALL_NOTES } from "@/lib/constants";
 import { useNotesStore } from "@/stores/notes.store";
 
 export function AppSidebar() {
-	const category = useParams();
+	const { t } = useTranslation();
+	const { lang, category } = useLang();
 	const navigate = useNavigate();
 	const { notes } = useNotesStore();
 	const categories = [
@@ -22,30 +25,34 @@ export function AppSidebar() {
 		),
 	];
 	function handleClick(category: string) {
-		navigate(`/${category}`);
+		navigate(`/notes/${lang}/${category}`);
+	}
+	function trans(dir: string) {
+		const text = t(`SideBar.${dir}`);
+		return text;
 	}
 	return (
-		<Sidebar>
-			<SidebarHeader>Categories</SidebarHeader>
+		<Sidebar side={lang === "en" ? "left" : "right"}>
+			<SidebarHeader>{trans("heading")}</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuButton
-								isActive={category.category === SELECT_ALL_NOTES}
+								isActive={category === SELECT_ALL_NOTES}
 								onClick={() => {
-									handleClick("all");
+									handleClick(SELECT_ALL_NOTES);
 								}}
 							>
 								<Files className="size-4" />
-								<span>All</span>
+								<span>{trans("all")}</span>
 							</SidebarMenuButton>
 
-							<SidebarHeader>Categories</SidebarHeader>
+							<SidebarHeader>{trans("heading")}</SidebarHeader>
 							{categories.length > 0 ? (
 								categories.map((note) => (
 									<SidebarMenuButton
-										isActive={category.category === note}
+										isActive={category === note}
 										key={note}
 										onClick={() => handleClick(note)}
 									>
@@ -53,7 +60,9 @@ export function AppSidebar() {
 									</SidebarMenuButton>
 								))
 							) : (
-								<SidebarMenuButton disabled>No categories</SidebarMenuButton>
+								<SidebarMenuButton disabled>
+									{trans("NotFound")}
+								</SidebarMenuButton>
 							)}
 						</SidebarMenuItem>
 					</SidebarMenu>

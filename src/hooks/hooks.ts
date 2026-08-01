@@ -1,8 +1,9 @@
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { SELECT_ALL_NOTES } from "@/lib/constants";
-import type { NoteType } from "@/lib/type";
+import i18n from "@/i18n";
+import { AR, EN, SELECT_ALL_NOTES } from "@/lib/constants";
+import type { AvailableLang, NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { useNotesStore } from "@/stores/notes.store";
 
@@ -163,11 +164,32 @@ export function useHandleDeleteNote(id: number) {
 						deletedNote.category,
 						deletedNote.content,
 						deletedNote.date,
-						deletedNote.isPin
+						deletedNote.isPin,
 					);
 				},
 			},
 		});
 	}
 	return hadnleDelete;
+}
+
+export function useLang() {
+	const { lang = "en", category = "all" } = useParams();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!lang) return;
+
+		const isRTL = lang === "ar";
+		i18n.changeLanguage(lang);
+		document.documentElement.lang = lang;
+		document.documentElement.dir = isRTL ? "rtl" : "ltr";
+	}, [lang]);
+
+	function toggleLang() {
+		const newLang: AvailableLang = lang === AR ? EN : AR;
+		navigate(`/notes/${newLang}/${category}`);
+	}
+
+	return { lang, category, toggleLang };
 }
