@@ -5,7 +5,7 @@ import { useLang } from "@/hooks/hooks";
 function LangToggle() {
 	const { toggleLang } = useLang();
 	return (
-		<Button onClick={toggleLang}>
+		<Button aria-labelledby="lang-toggle" onClick={toggleLang}>
 			<Languages />
 		</Button>
 	);

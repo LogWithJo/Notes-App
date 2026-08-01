@@ -8,6 +8,9 @@
 - [x] - Make the sideBar links with a react router
 - [ ] - enhance side bar for mobile view
 - [ ] - block saving if the user remvoes the note title
+- [ ] - fix uncategriezed bug
+- [ ] - fix untitled or uncontent note bug
+- [ ] - save preferd lang
 
 
 ## Enhancements
