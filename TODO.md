@@ -7,6 +7,7 @@
 - [x] - Make the sideBar links with a react router
 - [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.no
 - [ ] - enhance ui for mobile
+- [x] - versions
 
 ## Bugs
 - [x] - fix uncategriezed bug
