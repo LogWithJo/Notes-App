@@ -9,6 +9,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	useSidebar,
 } from "@/components/ui/sidebar";
 import { useLang } from "@/hooks/hooks";
 import { SELECT_ALL_NOTES } from "@/lib/constants";
@@ -18,13 +19,18 @@ export function AppSidebar() {
 	const { t } = useTranslation();
 	const { lang, category } = useLang();
 	const navigate = useNavigate();
+	const { isMobile, setOpenMobile } = useSidebar();
 	const { notes } = useNotesStore();
+
 	const categories = [
 		...new Set(
 			notes.map((note) => note.category).filter((categ) => categ !== ""),
 		),
 	];
 	function handleClick(category: string) {
+		// Close the mobile sheet when navigating from the sidebar so the
+		// overlay doesn't keep covering the content.
+		if (isMobile) setOpenMobile(false);
 		navigate(`/notes/${lang}/${category}`);
 	}
 	function trans(dir: string) {

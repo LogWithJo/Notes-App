@@ -1,7 +1,13 @@
 import { ArrowLeft, PlusIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import {
 	Field,
 	FieldDescription,
@@ -51,6 +57,10 @@ export default function AddNoteDialog() {
 				</Button>
 			</DialogTrigger>
 			<DialogContent showCloseButton={false}>
+				<DialogTitle className="sr-only">{trans("title")}</DialogTitle>
+				<DialogDescription className="sr-only">
+					{trans("description")}
+				</DialogDescription>
 				<form onSubmit={handleSubmit}>
 					<FieldSet>
 						<FieldLegend>{trans("title")}</FieldLegend>
@@ -119,6 +129,7 @@ function CategorySelectField() {
 }
 
 function AddCategoryInputField() {
+	const { t } = useTranslation();
 	const { error, handleClick, close, handleInputChange, category } =
 		useAddCategoryFieldData();
 	return (
@@ -137,7 +148,7 @@ function AddCategoryInputField() {
 				onChange={handleInputChange}
 			/>
 			<Button className="cursor-pointer" onClick={handleClick}>
-				Add Category
+				{t("Header.addNoteDialog.categoryInput.button")}
 			</Button>
 		</div>
 	);

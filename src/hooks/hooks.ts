@@ -2,7 +2,7 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import i18n from "@/i18n";
-import { AR, EN, SELECT_ALL_NOTES } from "@/lib/constants";
+import { AR, EN, MOBILE_BREAKPOINT, SELECT_ALL_NOTES } from "@/lib/constants";
 import type { AvailableLang, NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { useNotePage } from "@/stores/notePage.store";
@@ -244,4 +244,31 @@ export function useLang() {
 	}
 
 	return { lang, category, toggleLang };
+}
+
+export function useIsMobile() {
+	const [isMobile, setIsMobile] = useState<boolean>(
+		() => window.innerWidth < MOBILE_BREAKPOINT,
+	);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia(
+			`(max-width: ${MOBILE_BREAKPOINT - 1}px)`,
+		);
+
+		const onChange = (e: MediaQueryListEvent) => {
+			setIsMobile(e.matches);
+		};
+
+		const setMobile = () => setIsMobile(mediaQuery.matches);
+		setMobile();
+
+		mediaQuery.addEventListener("change", onChange);
+
+		return () => {
+			mediaQuery.removeEventListener("change", onChange);
+		};
+	}, []);
+
+	return isMobile;
 }

@@ -91,7 +91,7 @@ export default function NoteCard({ note }: { note: NoteType }) {
 								className="cursor-pointer"
 							>
 								<Pin className="size-4" />
-								{note.isPin ? trans("dropDown.pin") : trans("dropDown.unPin")}
+								{note.isPin ? trans("dropDown.unPin") : trans("dropDown.pin")}
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>

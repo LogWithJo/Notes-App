@@ -20,7 +20,7 @@ export default function NotesHomePage() {
 			<NotesHeader>
 				<SidebarTrigger />
 				<SearchBar />
-				<div className='flex justify-center gap-3'>
+				<div className="flex justify-center gap-3">
 					<LangToggle />
 					<AddNoteDialog />
 				</div>

@@ -6,7 +6,7 @@ import NoteEditorPage from "./pages/Note/NotePage";
 export function App() {
 	return (
 		<Routes>
-			<Route index element={<Navigate to={"/notes/en/all"} replace />} />
+			<Route index element={<Navigate to={"/notes/evn/all"} replace />} />
 			<Route
 				path="/notes/:lang/:category"
 				element={
