@@ -20,6 +20,7 @@ export default function SearchBar() {
 						onChange={(e) => {
 							updateSearchText(e.target.value);
 						}}
+						className="caret-blue-400"
 						id="inline-start-input"
 						placeholder={t("Header.search")}
 					/>

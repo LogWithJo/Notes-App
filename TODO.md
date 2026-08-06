@@ -19,7 +19,7 @@
 - [x] - Pin/favorite notes.
 - [x] - Word/character count in the editor.
 - [x] - Make the app exists in arabic and english
-- [ ] - make a color pallete for the website
+- [x] - make a color pallete for the website
 - [ ] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
 - [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [ ] - Markdown or basic rich-text support in the note editor.

@@ -76,6 +76,7 @@ export default function AddNoteDialog() {
 									{trans("titleInput.title")}
 								</FieldLabel>
 								<Input
+									className="caret-blue-400"
 									id="note-title"
 									autoComplete="off"
 									placeholder={trans("titleInput.placeholder")}
@@ -142,7 +143,7 @@ function AddCategoryInputField() {
 				<ArrowLeft />
 			</Button>
 			<Input
-				className={`${error ? "border-red-400" : ""}`}
+				className={`${error ? "border-red-400" : ""} caret-blue-400`}
 				value={category}
 				placeholder="Work | Personal"
 				onChange={handleInputChange}

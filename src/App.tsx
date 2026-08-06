@@ -4,9 +4,12 @@ import NotesHomePage from "./pages/main/NotesAppHomePage";
 import NoteEditorPage from "./pages/Note/NotePage";
 
 export function App() {
+	addEventListener("keydown", (e) => {
+		console.log(e.key);
+	});
 	return (
 		<Routes>
-			<Route index element={<Navigate to={"/notes/evn/all"} replace />} />
+			<Route index element={<Navigate to={"/notes/en/all"} replace />} />
 			<Route
 				path="/notes/:lang/:category"
 				element={
