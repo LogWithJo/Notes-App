@@ -1,4 +1,5 @@
 import { ArrowLeft, PlusIcon } from "lucide-react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +20,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
 	useAddCategoryFieldData,
 	useAddNoteDialogOnSubmit,
 	useLang,
@@ -27,6 +34,26 @@ import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { CategorySelect } from "./CategorySelect";
 
 export default function AddNoteDialog() {
+	return (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger>
+					<AddDialog />
+				</TooltipTrigger>
+				<TooltipContent>
+					<p className="flex items-center gap-2">
+						Add new Note
+						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
+							⌘M
+						</kbd>
+					</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	);
+}
+
+function AddDialog() {
 	const { t } = useTranslation();
 	function trans(direction: string) {
 		const text = t(`Header.addNoteDialog.${direction}`);
@@ -43,6 +70,11 @@ export default function AddNoteDialog() {
 	const { handleSubmit } = useAddNoteDialogOnSubmit();
 	const { lang } = useLang();
 
+	useHotkeys("ctrl+m, meta+m", (e) => {
+		e.preventDefault();
+		toggleIsOpen(true);
+	});
+
 	return (
 		<Dialog
 			open={isOpen}
@@ -53,7 +85,7 @@ export default function AddNoteDialog() {
 			<DialogTrigger asChild>
 				<Button>
 					<PlusIcon className="size-4" />
-					<span className="hidden jmd:block">{trans("toggleButton")}</span>
+					<span className="hidden md:block">{trans("toggleButton")}</span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent showCloseButton={false}>

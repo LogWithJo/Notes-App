@@ -1,6 +1,12 @@
 import { Separator } from "@base-ui/react";
 import { Toaster } from "sonner";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useFilterNotes } from "@/hooks/hooks";
 import AddNoteDialog from "./AddNoteDialog";
 import LangToggle from "./LangToggle";
@@ -18,7 +24,7 @@ export default function NotesHomePage() {
 	return (
 		<main>
 			<NotesHeader>
-				<SidebarTrigger />
+				<SideBar />
 				<SearchBar />
 				<div className="flex justify-center gap-3">
 					<LangToggle />
@@ -36,5 +42,25 @@ export default function NotesHomePage() {
 				theme={theme === "dark" || theme === "light" ? theme : undefined}
 			/>
 		</main>
+	);
+}
+
+function SideBar() {
+	return (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger>
+					<SidebarTrigger />
+				</TooltipTrigger>
+				<TooltipContent>
+					<p className="flex items-center gap-2">
+						Toggle Sidebar
+						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
+							⌘B
+						</kbd>
+					</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 }

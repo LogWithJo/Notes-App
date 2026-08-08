@@ -5,9 +5,9 @@
 - [x] - Turn the category Input into a Select/combobox populated from existing categories (plus an "add new" option) to prevent fragmentation.
 - [x] - Add autosave (debounced write on change) or at least a dirty-state check with a confirm-on-navigate for NotePage.
 - [x] - Make the sideBar links with a react router
+- [x] - versions
 - [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.no
 - [ ] - enhance ui for mobile
-- [x] - versions
 
 ## Bugs
 - [x] - fix uncategriezed bug
@@ -20,7 +20,8 @@
 - [x] - Word/character count in the editor.
 - [x] - Make the app exists in arabic and english
 - [x] - make a color pallete for the website
-- [ ] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
+- [x] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
+- [ ] - remove /en and put it in the localstorage
 - [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
