@@ -9,11 +9,13 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useLang } from "@/hooks/hooks";
+import { LANGAUGE_COMMAND } from "@/lib/constants";
+import { getCommands, getHotKey } from "@/lib/utils";
 
 function LangToggle() {
 	const { t } = useTranslation();
 	const { toggleLang } = useLang();
-	useHotkeys("ctrl+l, meta+l", (e) => {
+	useHotkeys(getHotKey(LANGAUGE_COMMAND), (e) => {
 		e.preventDefault();
 		toggleLang();
 	});
@@ -28,9 +30,9 @@ function LangToggle() {
 				</TooltipTrigger>
 				<TooltipContent>
 					<p className="flex items-center gap-2">
-						toggle Language
+						{t("Tooltips.language")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							⌘L
+							{getCommands(LANGAUGE_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>
@@ -40,25 +42,3 @@ function LangToggle() {
 }
 
 export default LangToggle;
-
-// export default function LangToggle() {
-// 	return (
-// 		<TooltipProvider>
-// 			<Tooltip>
-// 				<TooltipTrigger asChild>
-// 					<Button variant="ghost" size="icon">
-// 						<SearchIcon />
-// 					</Button>
-// 				</TooltipTrigger>
-// 				<TooltipContent>
-// 					<p className="flex items-center gap-2">
-// 						Search
-// 						<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-// 							⌘K
-// 						</kbd>
-// 					</p>
-// 				</TooltipContent>
-// 			</Tooltip>
-// 		</TooltipProvider>
-// 	);
-// }

@@ -21,7 +21,7 @@
 - [x] - Make the app exists in arabic and english
 - [x] - make a color pallete for the website
 - [x] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
-- [ ] - Toggle Theme button
+- [x] - Toggle Theme button
 - [ ] - Costum Slider
 - [ ] - remove /en and put it in the localstorage
 - [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins

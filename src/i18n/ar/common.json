@@ -7,6 +7,8 @@
 	"Header": {
 		"search": "ابحث...",
 		"language": "تغيير اللغة",
+		"dark": "غامق",
+		"light": "فاتح",
 		"addNoteDialog": {
 			"toggleButton": "مذكرة جديدة",
 			"title": "إنشاء مذكرة جديدة",
@@ -60,6 +62,7 @@
 		"language": "تغيير اللغة",
 		"newNote": "اضافة ملاحظة جديدة",
 		"sideBar": "اغلاق-فتح الشريط الجانبي",
-		"search": "بحث"
+		"search": "بحث",
+		"theme": "تغيير الثيم"
 	}
 }

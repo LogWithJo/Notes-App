@@ -12,6 +12,7 @@ import {
 import { useFilterNotes, useLang } from "@/hooks/hooks";
 import { useNotesStore } from "@/stores/notes.store";
 import NoteCard from "./NoteCard";
+import { EN } from "@/lib/constants";
 
 export default function NotesSection({ children }: { children: ReactNode }) {
 	return <section className="space-y-5 px-2 py-4 sm:px-4">{children}</section>;
@@ -53,7 +54,7 @@ export function NotesResultsHeader() {
 
 			<Badge variant="secondary" className="h-7 rounded-full px-3">
 				{notes.length} {trans("notes")}
-				{lang === "en" ? (notes.length === 1 ? "" : "s") : ""}
+				{lang === EN ? (notes.length === 1 ? "" : "s") : ""}
 			</Badge>
 		</div>
 	);

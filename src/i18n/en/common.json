@@ -7,6 +7,8 @@
 	"Header": {
 		"search": "Search",
 		"language": "change Lnaguage",
+		"dark": "dark",
+		"light": "light",
 		"addNoteDialog": {
 			"toggleButton": "Add new note",
 			"title": "New note",
@@ -60,6 +62,7 @@
 		"language": "change language",
 		"newNote": "Add new Note",
 		"sideBar": "toggle SideBar",
-		"search": "Search"
+		"search": "Search",
+		"theme": "Toggle Theme"
 	}
 }

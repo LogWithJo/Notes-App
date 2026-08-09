@@ -1,4 +1,5 @@
 import { Separator } from "@base-ui/react";
+import { useTranslation } from "react-i18next";
 import { Toaster } from "sonner";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -8,6 +9,8 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useFilterNotes } from "@/hooks/hooks";
+import { DARK_MODE, SIDEBAR_COMMAND } from "@/lib/constants";
+import { getCommands } from "@/lib/utils";
 import AddNoteDialog from "./AddNoteDialog";
 import LangToggle from "./LangToggle";
 import NotesSection, {
@@ -41,13 +44,14 @@ export default function NotesHomePage() {
 			</NotesSection>
 			<Toaster
 				position="top-center"
-				theme={theme === "dark" || theme === "light" ? theme : undefined}
+				theme={theme === DARK_MODE || theme === DARK_MODE ? theme : undefined}
 			/>
 		</main>
 	);
 }
 
 function SideBar() {
+	const { t } = useTranslation();
 	return (
 		<TooltipProvider>
 			<Tooltip>
@@ -56,9 +60,9 @@ function SideBar() {
 				</TooltipTrigger>
 				<TooltipContent>
 					<p className="flex items-center gap-2">
-						Toggle Sidebar
+						{t("Tooltips.sideBar")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							⌘B
+							{getCommands(SIDEBAR_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>
