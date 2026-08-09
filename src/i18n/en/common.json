@@ -55,5 +55,11 @@
 		"untitled": "unTitled Note",
 		"characters": "Characters length",
 		"placeholder": "Start writing"
+	},
+	"Tooltips": {
+		"language": "change language",
+		"newNote": "Add new Note",
+		"sideBar": "toggle SideBar",
+		"search": "Search"
 	}
 }

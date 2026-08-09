@@ -17,6 +17,7 @@ import NotesSection, {
 } from "./NotesGrid";
 import { NotesHeader } from "./NotesHeader";
 import SearchBar from "./SearchBar";
+import ThemeToggle from "./ThemeToggle";
 
 export default function NotesHomePage() {
 	const theme = localStorage.getItem("theme");
@@ -27,6 +28,7 @@ export default function NotesHomePage() {
 				<SideBar />
 				<SearchBar />
 				<div className="flex justify-center gap-3">
+					<ThemeToggle />
 					<LangToggle />
 					<AddNoteDialog />
 				</div>
