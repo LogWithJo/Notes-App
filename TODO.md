@@ -22,7 +22,9 @@
 - [x] - make a color pallete for the website
 - [x] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
 - [x] - Toggle Theme button
-- [ ] - Costum Slider
+- [x] - Costum Slider
+- [ ] - Add a costum popover
+- [ ] - make a settings route and make shortcuts costumizable
 - [ ] - remove /en and put it in the localstorage
 - [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [ ] - Markdown or basic rich-text support in the note editor.
