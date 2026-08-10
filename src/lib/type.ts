@@ -13,6 +13,13 @@ export type AvailableLang = "en" | "ar";
 
 export type SortTypes = (typeof SORT)[keyof typeof SORT];
 export interface NotesStore {
+
+	lastDeletedNote: NoteType | null;
+	setLastDeletedNote: (note: NoteType | null) => void;
+	isDeleteNotePortalOpen: boolean;
+	toggleIsDeleteNotePortalOpen: (toggle: boolean) => void;
+	isErrorPortalOpen: boolean;
+	toggleIsErrorPortalOpen: (toggle: boolean) => void;
 	sortedBy: SortTypes;
 	notes: NoteType[];
 	categories: string[];

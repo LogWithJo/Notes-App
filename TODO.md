@@ -22,7 +22,7 @@
 - [x] - Toggle Theme button
 - [x] - Costum Slider
 - [x] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
-- [ ] - Add a costum popover
+- [x] - Add a costum popover
 - [ ] - make a settings route and make shortcuts costumizable
 - [ ] - remove /en and put it in the localstorage
 - [ ] - Markdown or basic rich-text support in the note editor.

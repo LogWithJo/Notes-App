@@ -1,19 +1,33 @@
-import { toast } from "sonner";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { NotesStore, NoteType } from "@/lib/type";
 import { SORT } from "@/lib/constants";
+import type { NotesStore, NoteType } from "@/lib/type";
 
-export const useNotesStore = create<NotesStore>()(
+export const 
+useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
+				isErrorPortalOpen: false,
+				toggleIsErrorPortalOpen: (toggle) => {
+					set({ isErrorPortalOpen: toggle });
+				},
+				isDeleteNotePortalOpen: false,
 				sortedBy: SORT.az,
+				lastDeletedNote: null,
 				notes: [],
 				categories: ["work", "personal"],
 				searchText: "",
+				setLastDeletedNote: (note) => {
+					set({ lastDeletedNote: note });
+				},
+				toggleIsDeleteNotePortalOpen: (toggle) => {
+					set({
+						isDeleteNotePortalOpen: toggle,
+					});
+				},
 				setSortedBy: (sortedBy) => {
-					set({sortedBy})
+					set({ sortedBy });
 				},
 				addNewCategory: (category) => {
 					set((state) => {
@@ -68,7 +82,7 @@ export const useNotesStore = create<NotesStore>()(
 							numberOfPins >= 3 &&
 							!state.notes.find((note) => note.id === id)?.isPin // you want to pin (false => true)
 						) {
-							toast.error("only 3");
+							set({ isErrorPortalOpen: true });
 							return {};
 						}
 						const newNotes = state.notes.map((note) => ({

@@ -1,6 +1,5 @@
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
 import i18n from "@/i18n";
 import { AR, EN, MOBILE_BREAKPOINT, SELECT_ALL_NOTES, sortFunctions } from "@/lib/constants";
 import type { AvailableLang, NoteType } from "@/lib/type";
@@ -187,30 +186,32 @@ export function useNotePageData(id: number) {
 }
 
 export function useHandleDeleteNote(id: number) {
-	const { notes, deleteNote, createNewNote } = useNotesStore();
+	const { notes, deleteNote, toggleIsDeleteNotePortalOpen, setLastDeletedNote } = useNotesStore();
 	const deletedNote: NoteType | undefined = notes.find(
 		(note) => note.id === id,
 	);
 
 	function hadnleDelete() {
 		deleteNote(id);
+		toggleIsDeleteNotePortalOpen(true);
+		setLastDeletedNote(deletedNote || null);
 
-		toast.success("Note deleted", {
-			duration: 5000,
-			action: {
-				label: "Undo",
-				onClick: () => {
-					if (!deletedNote) return;
-					createNewNote(
-						deletedNote.title,
-						deletedNote.category,
-						deletedNote.content,
-						deletedNote.date,
-						deletedNote.isPin,
-					);
-				},
-			},
-		});
+		// toast.success("Note deleted", {
+		// 	duration: 5000,
+		// 	action: {
+		// 		label: "Undo",
+		// 		onClick: () => {
+		// 			if (!deletedNote) return;
+		// 			createNewNote(
+		// 				deletedNote.title,
+		// 				deletedNote.category,
+		// 				deletedNote.content,
+		// 				deletedNote.date,
+		// 				deletedNote.isPin,
+		// 			);
+		// 		},
+		// 	},
+		// });
 	}
 	return hadnleDelete;
 }

@@ -1,6 +1,5 @@
 import { Separator } from "@base-ui/react";
 import { useTranslation } from "react-i18next";
-import { Toaster } from "sonner";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
 	Tooltip,
@@ -9,7 +8,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useFilterNotes } from "@/hooks/hooks";
-import { DARK_MODE, SIDEBAR_COMMAND } from "@/lib/constants";
+import { SIDEBAR_COMMAND } from "@/lib/constants";
 import { getCommands } from "@/lib/utils";
 import AddNoteDialog from "./AddNoteDialog";
 import LangToggle from "./LangToggle";
@@ -21,9 +20,9 @@ import NotesSection, {
 import { NotesHeader } from "./NotesHeader";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
+import NotifactionPortal from "@/components/NotifactionPortal";
 
 export default function NotesHomePage() {
-	const theme = localStorage.getItem("theme");
 	const { notes } = useFilterNotes();
 	return (
 		<main>
@@ -42,10 +41,7 @@ export default function NotesHomePage() {
 				<Separator />
 				{notes.length === 0 ? <NoNotesFound /> : <NotesGrid />}
 			</NotesSection>
-			<Toaster
-				position="top-center"
-				theme={theme === DARK_MODE || theme === DARK_MODE ? theme : undefined}
-			/>
+			<NotifactionPortal />
 		</main>
 	);
 }
