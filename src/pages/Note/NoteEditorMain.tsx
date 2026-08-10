@@ -11,12 +11,7 @@ export default function NoteEditorMain() {
 		<main className="mx-auto w-full max-w-5xl p-6">
 			<Card className="shadow-lg">
 				<CardHeader className="pb-4">
-					<CardTitle className="text-muted-foreground text-sm">
-						{t("NotePage.noteEditor")} | {t("NotePage.words")}:{" "}
-						{content.split(" ").filter((word) => !!word).length} |{" "}
-						{t("NotePage.characters")}:{" "}
-						{content.split("").filter((char) => char !== " ").length}
-					</CardTitle>
+					<Statics />
 				</CardHeader>
 
 				<Separator />
@@ -33,6 +28,7 @@ export default function NoteEditorMain() {
 					/>
 
 					<TextareaAutosize
+						autoFocus
 						value={content}
 						onChange={(e) => {
 							setContent(e.target.value);
@@ -44,5 +40,18 @@ export default function NoteEditorMain() {
 				</CardContent>
 			</Card>
 		</main>
+	);
+}
+
+function Statics() {
+	const { t } = useTranslation();
+	const { content } = useNotePage();
+	return (
+		<CardTitle className="text-muted-foreground text-sm">
+			{t("NotePage.noteEditor")} | {t("NotePage.words")}:{" "}
+			{content.split(" ").filter((word) => !!word).length} |{" "}
+			{t("NotePage.characters")}:{" "}
+			{content.split("").filter((char) => char !== " ").length}
+		</CardTitle>
 	);
 }

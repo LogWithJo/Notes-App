@@ -1,3 +1,5 @@
+import { SORT } from "./constants";
+
 export interface NoteType {
 	id: number;
 	date: number;
@@ -8,13 +10,23 @@ export interface NoteType {
 }
 
 export type AvailableLang = "en" | "ar";
+
+export type SortTypes = (typeof SORT)[keyof typeof SORT];
 export interface NotesStore {
+	sortedBy: SortTypes;
 	notes: NoteType[];
 	categories: string[];
 	searchText: string;
+	setSortedBy: (sortedBy: SortTypes) => void;
 	addNewCategory: (category: string[]) => void;
 	updateSearchText: (newVal: string) => void;
-	createNewNote: (title: string, category: string, content?: string, date?: number, isPin?: boolean) => void;
+	createNewNote: (
+		title: string,
+		category: string,
+		content?: string,
+		date?: number,
+		isPin?: boolean,
+	) => void;
 	deleteNote: (id: number) => void;
 	editNote: (id: number, title: string, content: string) => void;
 	togglePin: (id: number) => void;
@@ -31,4 +43,17 @@ export interface AddNoteDialogData {
 	setTitleError: (error: string | null) => void;
 	setCategory: (category: string) => void;
 	setTitle: (title: string) => void;
+}
+
+export interface TNotePage {
+	title: string;
+	content: string;
+	isSaving: boolean;
+
+	setTitle: (title: string) => void;
+	setContent: (content: string) => void;
+	setIsSaving: (isSaving: boolean) => void;
+
+	loadNote: (note: NoteType) => void;
+	reset: () => void;
 }

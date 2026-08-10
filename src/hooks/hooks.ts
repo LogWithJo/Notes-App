@@ -2,7 +2,7 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import i18n from "@/i18n";
-import { AR, EN, MOBILE_BREAKPOINT, SELECT_ALL_NOTES } from "@/lib/constants";
+import { AR, EN, MOBILE_BREAKPOINT, SELECT_ALL_NOTES, sortFunctions } from "@/lib/constants";
 import type { AvailableLang, NoteType } from "@/lib/type";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { useNotePage } from "@/stores/notePage.store";
@@ -11,7 +11,7 @@ import { useNotesStore } from "@/stores/notes.store";
 export function useFilterNotes() {
 	const category = useParams();
 	const currentCategory = category.category;
-	const { notes: beforeInit, searchText } = useNotesStore();
+	const { notes: beforeInit, searchText, sortedBy } = useNotesStore();
 
 	const filteredNotes = useMemo(() => {
 		return currentCategory === SELECT_ALL_NOTES || !currentCategory
@@ -28,10 +28,11 @@ export function useFilterNotes() {
 	const isSearching = searchText.trim().length > 0;
 
 	const notes: NoteType[] = useMemo(() => {
+		const compareFn: (a: NoteType, b: NoteType) => number = sortFunctions[sortedBy]
 		return isSearching
 			? searchedNotes.sort((a, b) => Number(b.isPin) - Number(a.isPin))
-			: filteredNotes.sort((a, b) => Number(b.isPin) - Number(a.isPin));
-	}, [isSearching, searchedNotes, filteredNotes]);
+			: filteredNotes.sort(compareFn).sort((a, b) => Number(b.isPin) - Number(a.isPin));
+	}, [isSearching, searchedNotes, filteredNotes, sortedBy]);
 
 	return { isSearching, notes };
 }
@@ -112,21 +113,15 @@ export function useAddCategoryFieldData() {
 
 export function useNotePageData(id: number) {
 	const navigate = useNavigate();
-
 	const { title, content, loadNote, setIsSaving } = useNotePage();
-
 	const { notes, editNote } = useNotesStore();
-
 	const firstRender = useRef(true);
 	const note = notes.find((n) => Number(n.id) === Number(id));
-
-	// The note id we last loaded, so we can flush its pending edits when we
-	// switch to another note or leave the page.
 	const loadedId = useRef<number | null>(null);
 
+	// Save any unsaved note before existing the note page
 	// biome-ignore lint/correctness/useExhaustiveDependencies: reload only when the route id changes
 	useEffect(() => {
-		// Flush pending edits for the previously open note before switching.
 		const prevId = loadedId.current;
 		if (prevId !== null && prevId !== Number(id)) {
 			const prevNote = useNotesStore
@@ -149,6 +144,7 @@ export function useNotePageData(id: number) {
 		loadNote(note);
 	}, [id]);
 
+	// save note traditionally
 	useEffect(() => {
 		if (!note) return;
 
@@ -157,11 +153,6 @@ export function useNotePageData(id: number) {
 			return;
 		}
 
-		// Ignore the run triggered by `loadNote` — the editor is already in
-		// sync with the note, so we must not save or flip the saving state.
-		// This guard also stops the "Saving..." loop: after `editNote` replaces
-		// the note object, `note` changes and re-runs this effect, but the
-		// values match, so we bail out instead of starting another save.
 		if (title === note.title && content === note.content) return;
 
 		setIsSaving(true);
@@ -174,8 +165,7 @@ export function useNotePageData(id: number) {
 		return () => clearTimeout(timeout);
 	}, [title, content, id, note, editNote, setIsSaving]);
 
-	// Flush any pending edits when leaving the page, so the latest changes
-	// are never lost (the debounce timer would otherwise just be cancelled).
+	// save any way if the user closes the page
 	useEffect(() => {
 		return () => {
 			const prevId = loadedId.current;

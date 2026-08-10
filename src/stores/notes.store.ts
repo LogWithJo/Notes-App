@@ -2,14 +2,19 @@ import { toast } from "sonner";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import type { NotesStore, NoteType } from "@/lib/type";
+import { SORT } from "@/lib/constants";
 
 export const useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
+				sortedBy: SORT.az,
 				notes: [],
 				categories: ["work", "personal"],
 				searchText: "",
+				setSortedBy: (sortedBy) => {
+					set({sortedBy})
+				},
 				addNewCategory: (category) => {
 					set((state) => {
 						return {

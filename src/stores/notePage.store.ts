@@ -1,19 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import type { NoteType } from "@/lib/type";
-
-interface TNotePage {
-	title: string;
-	content: string;
-	isSaving: boolean;
-
-	setTitle: (title: string) => void;
-	setContent: (content: string) => void;
-	setIsSaving: (isSaving: boolean) => void;
-
-	loadNote: (note: NoteType) => void;
-	reset: () => void;
-}
+import type { TNotePage } from "@/lib/type";
 
 export const useNotePage = create<TNotePage>()(
 	devtools(

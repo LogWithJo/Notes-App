@@ -7,12 +7,10 @@
 - [x] - Make the sideBar links with a react router
 - [x] - versions
 - [ ] - Add basic tests around the store logic (create/edit/delete/restore) since that's the part most likely to regress silently.no
-- [ ] - enhance ui for mobile
 
 ## Bugs
 - [x] - fix uncategriezed bug
 - [ ] - fix untitled or uncontent note bug
-- [ ] - save preferd lang
 
 ## Enhancements
 - [x] - Undo toast after delete ("Note deleted — Undo") instead of relying solely on the trash/restore flow.
@@ -23,10 +21,10 @@
 - [x] - Keyboard shortcuts (⌘K search, ⌘N new note, ⌘S save while editing).
 - [x] - Toggle Theme button
 - [x] - Costum Slider
+- [x] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [ ] - Add a costum popover
 - [ ] - make a settings route and make shortcuts costumizable
 - [ ] - remove /en and put it in the localstorage
-- [ ] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.

@@ -63,6 +63,19 @@
 		"newNote": "Add new Note",
 		"sideBar": "toggle SideBar",
 		"search": "Search",
-		"theme": "Toggle Theme"
+		"theme": "Toggle Theme",
+		"saveNote": "Save Note"
+	},
+	"Sort": {
+		"sort": "Sort by",
+		"Time": "Time-Based",
+		"Content": "Content-Based",
+		"Length": "Length-Based",
+		"az": "A => Z",
+		"za": "Z => A",
+		"newest": "Newest",
+		"oldest": "Oldest",
+		"maxLength": "Max Length",
+		"minLength": "Min Length"
 	}
 }

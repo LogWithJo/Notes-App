@@ -2,6 +2,7 @@ import { FileTextIcon, SearchXIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -9,10 +10,18 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useFilterNotes, useLang } from "@/hooks/hooks";
+import i18n from "@/i18n";
+import { AR, EN, SORT } from "@/lib/constants";
+import type { AvailableLang } from "@/lib/type";
 import { useNotesStore } from "@/stores/notes.store";
 import NoteCard from "./NoteCard";
-import { EN } from "@/lib/constants";
 
 export default function NotesSection({ children }: { children: ReactNode }) {
 	return <section className="space-y-5 px-2 py-4 sm:px-4">{children}</section>;
@@ -52,16 +61,20 @@ export function NotesResultsHeader() {
 				</p>
 			</div>
 
-			<Badge variant="secondary" className="h-7 rounded-full px-3">
-				{notes.length} {trans("notes")}
-				{lang === EN ? (notes.length === 1 ? "" : "s") : ""}
-			</Badge>
+			<div className="flex justify-center items-center gap-3">
+				<SortDropDown />
+
+				<Badge variant="secondary" className="h-7 rounded-full px-3">
+					{notes.length} {trans("notes")}
+					{lang === EN ? (notes.length === 1 ? "" : "s") : ""}
+				</Badge>
+			</div>
 		</div>
 	);
 }
 
 export function NoNotesFound() {
-	const {t} = useTranslation()
+	const { t } = useTranslation();
 	const { isSearching } = useFilterNotes();
 	return (
 		<Card className="border-dashed bg-muted/20 shadow-none">
@@ -93,5 +106,33 @@ export function NotesGrid() {
 				<NoteCard key={note.id} note={note} />
 			))}
 		</div>
+	);
+}
+
+function SortDropDown() {
+	const lang = i18n.language as AvailableLang;
+	const { t } = useTranslation();
+	const { sortedBy, setSortedBy } = useNotesStore();
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger>
+				<Button>
+					{t("Sort.sort")}: {t(`Sort.${sortedBy}`)}
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align="end">
+				{Object.values(SORT).map((sort) => (
+					<DropdownMenuItem
+						dir={lang === AR ? "rtl" : "ltr"}
+						key={sort}
+						onClick={() => {
+							setSortedBy(sort);
+						}}
+					>
+						{t(`Sort.${sort}`)}
+					</DropdownMenuItem>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }
