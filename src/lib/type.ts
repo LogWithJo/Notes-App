@@ -13,7 +13,6 @@ export type AvailableLang = "en" | "ar";
 
 export type SortTypes = (typeof SORT)[keyof typeof SORT];
 export interface NotesStore {
-
 	lastDeletedNote: NoteType | null;
 	setLastDeletedNote: (note: NoteType | null) => void;
 	isDeleteNotePortalOpen: boolean;
@@ -31,6 +30,7 @@ export interface NotesStore {
 		title: string,
 		category: string,
 		content?: string,
+		id?: number,
 		date?: number,
 		isPin?: boolean,
 	) => void;

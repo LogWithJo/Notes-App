@@ -38,6 +38,7 @@ export function useFilterNotes() {
 
 export function useAddNoteDialogOnSubmit() {
 	const { notes, createNewNote } = useNotesStore();
+	const navigate = useNavigate();
 	const {
 		title,
 		category,
@@ -72,14 +73,16 @@ export function useAddNoteDialogOnSubmit() {
 
 	function handleSubmit(e: FormEvent) {
 		e.preventDefault();
+		const id = Date.now()
 		if (!validate()) return;
 
-		createNewNote(titleTrimmed.toLowerCase(), categoryTrimmed.toLowerCase());
+		createNewNote(titleTrimmed.toLowerCase(), categoryTrimmed.toLowerCase(), "", id);
 
 		setTitle("");
 		setCategory("");
 		toggleIsOpen(false);
 		setTitleError(null);
+		navigate(`/note/${i18n.language}/${id}`);
 	}
 	return {
 		handleSubmit,
@@ -159,7 +162,7 @@ export function useNotePageData(id: number) {
 		const timeout = setTimeout(() => {
 			editNote(Number(id), title, content);
 			setIsSaving(false);
-		}, 3000);
+		}, 500);
 
 		return () => clearTimeout(timeout);
 	}, [title, content, id, note, editNote, setIsSaving]);
@@ -195,23 +198,6 @@ export function useHandleDeleteNote(id: number) {
 		deleteNote(id);
 		toggleIsDeleteNotePortalOpen(true);
 		setLastDeletedNote(deletedNote || null);
-
-		// toast.success("Note deleted", {
-		// 	duration: 5000,
-		// 	action: {
-		// 		label: "Undo",
-		// 		onClick: () => {
-		// 			if (!deletedNote) return;
-		// 			createNewNote(
-		// 				deletedNote.title,
-		// 				deletedNote.category,
-		// 				deletedNote.content,
-		// 				deletedNote.date,
-		// 				deletedNote.isPin,
-		// 			);
-		// 		},
-		// 	},
-		// });
 	}
 	return hadnleDelete;
 }

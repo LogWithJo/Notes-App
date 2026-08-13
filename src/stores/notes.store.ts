@@ -3,8 +3,7 @@ import { devtools, persist } from "zustand/middleware";
 import { SORT } from "@/lib/constants";
 import type { NotesStore, NoteType } from "@/lib/type";
 
-export const 
-useNotesStore = create<NotesStore>()(
+export const useNotesStore = create<NotesStore>()(
 	devtools(
 		persist(
 			(set) => ({
@@ -39,12 +38,12 @@ useNotesStore = create<NotesStore>()(
 				updateSearchText: (newVal) => {
 					set({ searchText: newVal });
 				},
-				createNewNote: (title, category, content, date, isPin) => {
+				createNewNote: (title, category, content, id, date, isPin) => {
 					set((state) => {
 						const newNotes = [
 							...state.notes,
 							{
-								id: Date.now(),
+								id: id || Date.now(),
 								date: date || Date.now(),
 								title,
 								isPin: isPin || false,
