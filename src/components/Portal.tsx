@@ -42,6 +42,7 @@ function DeleteNotePortal() {
 							lastDeletedNote.title,
 							lastDeletedNote.category,
 							lastDeletedNote.content,
+							lastDeletedNote.id,
 							lastDeletedNote.date,
 							lastDeletedNote.isPin,
 						);

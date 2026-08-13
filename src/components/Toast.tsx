@@ -89,6 +89,7 @@ function ExitButton({ variation }: { variation: "success" | "error" }) {
 						lastDeletedNote.title,
 						lastDeletedNote.category,
 						lastDeletedNote.content,
+						lastDeletedNote.id,
 						lastDeletedNote.date,
 						lastDeletedNote.isPin,
 					);
