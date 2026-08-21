@@ -11,7 +11,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useLang } from "@/hooks/hooks";
-import { SAVENOTE_COMMAND } from "@/lib/constants";
+import { Commands } from "@/lib/constants";
 import { getCommands, getHotKey } from "@/lib/utils";
 import { useNotePage } from "@/stores/notePage.store";
 
@@ -56,15 +56,15 @@ function SaveButton() {
 	const { t } = useTranslation();
 	const { lang } = useLang();
 	const navigate = useNavigate();
-	const { isSaving, reset, content } = useNotePage();
+	const { isSaving, reset, setLoadingPage } = useNotePage();
 
 	function save() {
-		if (content.trim().length === 0) return
-		reset();
+		setLoadingPage(true)
 		navigate(`/notes/${lang}/all`);
+		reset();
 	}
 
-	useHotkeys(getHotKey(SAVENOTE_COMMAND), (e) => {
+	useHotkeys(getHotKey(Commands.SAVENOTE_COMMAND), (e) => {
 		e.preventDefault();
 		save();
 	});
@@ -82,7 +82,7 @@ function SaveButton() {
 					<p className="flex items-center gap-2">
 						{t("Tooltips.saveNote")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							{getCommands(SAVENOTE_COMMAND)}
+							{getCommands(Commands.SAVENOTE_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>

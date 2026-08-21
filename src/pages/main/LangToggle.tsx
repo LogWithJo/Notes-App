@@ -9,13 +9,13 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useLang } from "@/hooks/hooks";
-import { LANGAUGE_COMMAND } from "@/lib/constants";
+import { Commands } from "@/lib/constants";
 import { getCommands, getHotKey } from "@/lib/utils";
 
 function LangToggle() {
 	const { t } = useTranslation();
 	const { toggleLang } = useLang();
-	useHotkeys(getHotKey(LANGAUGE_COMMAND), (e) => {
+	useHotkeys(getHotKey(Commands.LANGAUGE_COMMAND), (e) => {
 		e.preventDefault();
 		toggleLang();
 	});
@@ -32,7 +32,7 @@ function LangToggle() {
 					<p className="flex items-center gap-2">
 						{t("Tooltips.language")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							{getCommands(LANGAUGE_COMMAND)}
+							{getCommands(Commands.LANGAUGE_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>

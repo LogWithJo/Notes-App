@@ -20,7 +20,7 @@ export default function NoteEditorMain() {
 					<TextareaAutosize
 						value={title}
 						onChange={(e) => {
-							setTitle(e.target.value);
+							setTitle(e.target.value.trim());
 						}}
 						rows={1}
 						placeholder={t("NotePage.untitled")}
@@ -31,7 +31,7 @@ export default function NoteEditorMain() {
 						autoFocus
 						value={content}
 						onChange={(e) => {
-							setContent(e.target.value);
+							setContent(e.target.value.trim());
 						}}
 						placeholder={`${t("NotePage.placeholder")}...`}
 						className="min-h-[65vh] w-full resize-none bg-transparent text-base leading-8 outline-none placeholder:text-muted-foreground"

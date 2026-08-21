@@ -22,6 +22,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useHandleDeleteNote, useLang } from "@/hooks/hooks";
+import { Languages } from "@/lib/constants";
 import type { NoteType } from "@/lib/type";
 import { useNotesStore } from "@/stores/notes.store";
 
@@ -75,7 +76,7 @@ export default function NoteCard({ note }: { note: NoteType }) {
 
 						<DropdownMenuContent align="end" className="w-36">
 							<DropdownMenuItem
-								dir={lang === "ar" ? "rtl" : "ltr"}
+								dir={lang === Languages[0] ? "rtl" : "ltr"}
 								onClick={handleDelete}
 								variant="destructive"
 								className="cursor-pointer"
@@ -84,7 +85,7 @@ export default function NoteCard({ note }: { note: NoteType }) {
 								{trans("dropDown.delete")}
 							</DropdownMenuItem>
 							<DropdownMenuItem
-								dir={lang === "ar" ? "rtl" : "ltr"}
+								dir={lang === Languages[0] ? "rtl" : "ltr"}
 								onClick={() => {
 									togglePin(note.id);
 								}}

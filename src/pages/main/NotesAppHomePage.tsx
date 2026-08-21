@@ -1,5 +1,6 @@
 import { Separator } from "@base-ui/react";
 import { useTranslation } from "react-i18next";
+import NotifactionPortal from "@/components/NotifactionPortal";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
 	Tooltip,
@@ -7,8 +8,8 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useFilterNotes } from "@/hooks/hooks";
-import { SIDEBAR_COMMAND } from "@/lib/constants";
+import { useFilterNotes } from "@/hooks/useFilterNotes.hook";
+import { Commands } from "@/lib/constants";
 import { getCommands } from "@/lib/utils";
 import AddNoteDialog from "./AddNoteDialog";
 import LangToggle from "./LangToggle";
@@ -20,7 +21,6 @@ import NotesSection, {
 import { NotesHeader } from "./NotesHeader";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
-import NotifactionPortal from "@/components/NotifactionPortal";
 
 export default function NotesHomePage() {
 	const { notes } = useFilterNotes();
@@ -58,7 +58,7 @@ function SideBar() {
 					<p className="flex items-center gap-2">
 						{t("Tooltips.sideBar")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							{getCommands(SIDEBAR_COMMAND)}
+							{getCommands(Commands.SIDEBAR_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>

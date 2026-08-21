@@ -8,15 +8,15 @@ export const useNotesStore = create<NotesStore>()(
 		persist(
 			(set) => ({
 				isErrorPortalOpen: false,
-				toggleIsErrorPortalOpen: (toggle) => {
-					set({ isErrorPortalOpen: toggle });
-				},
 				isDeleteNotePortalOpen: false,
 				sortedBy: SORT.az,
 				lastDeletedNote: null,
 				notes: [],
 				categories: ["work", "personal"],
 				searchText: "",
+				toggleIsErrorPortalOpen: (toggle) => {
+					set({ isErrorPortalOpen: toggle });
+				},
 				setLastDeletedNote: (note) => {
 					set({ lastDeletedNote: note });
 				},

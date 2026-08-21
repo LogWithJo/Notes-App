@@ -1,18 +1,23 @@
-import { useParams } from "react-router-dom";
-import { useNotePageData } from "@/hooks/hooks";
-import NoteEditorHeader from "./NoteEditorHeader";
-import NoteEditorMain from "./NoteEditorMain";
+import { useParams } from "react-router-dom"
+import { useNotePageData } from "@/hooks/useNotePageData.hook"
+import LoadingPage from "./LoadingPage"
+import NoteEditorHeader from "./NoteEditorHeader"
+import NoteEditorMain from "./NoteEditorMain"
+import { useNotePage } from "@/stores/notePage.store"
 
 function NotePage() {
-	const { id } = useParams();
-	useNotePageData(Number(id));
-	return (
-		<>
-			<NoteEditorHeader />
+  const { showLoadingPage } = useNotePage()
+  const { id } = useParams()
+  useNotePageData(Number(id))
+  return (
+    <>
+      {showLoadingPage && <LoadingPage />}
 
-			<NoteEditorMain />
-		</>
-	);
+      <NoteEditorHeader />
+
+      <NoteEditorMain />
+    </>
+  )
 }
 
-export default NotePage;
+export default NotePage

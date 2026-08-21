@@ -14,7 +14,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SEARCH_COMMAND } from "@/lib/constants";
+import { Commands } from "@/lib/constants";
 import { getCommands, getHotKey } from "@/lib/utils";
 import { useNotesStore } from "@/stores/notes.store";
 
@@ -30,7 +30,7 @@ export default function SearchBar() {
 					<p className="flex items-center gap-2">
 						{t("Tooltips.search")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							{getCommands(SEARCH_COMMAND)}
+							{getCommands(Commands.SEARCH_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>
@@ -43,7 +43,7 @@ function Search() {
 	const { t } = useTranslation();
 	const { searchText, updateSearchText } = useNotesStore();
 	const input = useRef<HTMLInputElement>(null);
-	useHotkeys(getHotKey(SEARCH_COMMAND), (e) => {
+	useHotkeys(getHotKey(Commands.SEARCH_COMMAND), (e) => {
 		e.preventDefault();
 		input.current?.focus();
 	});

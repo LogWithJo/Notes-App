@@ -627,7 +627,7 @@ function AddDialog() {
 					<FieldSet>
 						<FieldLegend>{trans("title")}</FieldLegend>
 						<FieldDescription
-							className={lang === "ar" ? "text-right" : "text-left"}
+							className={lang === Languages ? "text-right" : "text-left"}
 						>
 							{trans("description")}
 						</FieldDescription>

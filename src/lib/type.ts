@@ -1,4 +1,4 @@
-import { SORT } from "./constants";
+import type { Languages, SORT } from "./constants";
 
 export interface NoteType {
 	id: number;
@@ -9,7 +9,7 @@ export interface NoteType {
 	content: string;
 }
 
-export type AvailableLang = "en" | "ar";
+export type AvailableLang = (typeof Languages)[number];
 
 export type SortTypes = (typeof SORT)[keyof typeof SORT];
 export interface NotesStore {
@@ -53,11 +53,13 @@ export interface AddNoteDialogData {
 }
 
 export interface TNotePage {
+	showLoadingPage: boolean;
 	title: string;
 	content: string;
 	isSaving: boolean;
 
 	setTitle: (title: string) => void;
+	setLoadingPage: (toggle: boolean) => void;
 	setContent: (content: string) => void;
 	setIsSaving: (isSaving: boolean) => void;
 

@@ -62,7 +62,7 @@ export function AppSidebar() {
 										key={note}
 										onClick={() => handleClick(note)}
 									>
-										{note.toUpperCase()}
+										{note}
 									</SidebarMenuButton>
 								))
 							) : (

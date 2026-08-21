@@ -25,12 +25,10 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-	useAddCategoryFieldData,
-	useAddNoteDialogOnSubmit,
-	useLang,
-} from "@/hooks/hooks";
-import { AR, NEWNOTE_COMMAND } from "@/lib/constants";
+import { useLang } from "@/hooks/hooks";
+import { useAddCategoryFieldData } from "@/hooks/useAddCategoryFieldData.hook";
+import { useAddNoteDialogOnSubmit } from "@/hooks/useAddNoteDialogOnSumbit.hook";
+import { Commands, Languages } from "@/lib/constants";
 import { getCommands, getHotKey } from "@/lib/utils";
 import { useAddNoteDialogStore } from "@/stores/addNoteDialog.store";
 import { CategorySelect } from "./CategorySelect";
@@ -47,7 +45,7 @@ export default function AddNoteDialog() {
 					<p className="flex items-center gap-2">
 						{t("Tooltips.newNote")}
 						<kbd className="pointer-events-none inline-flex h-7 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[17px] font-medium text-muted-foreground">
-							{getCommands(NEWNOTE_COMMAND)}
+							{getCommands(Commands.NEWNOTE_COMMAND)}
 						</kbd>
 					</p>
 				</TooltipContent>
@@ -73,7 +71,7 @@ function AddDialog() {
 	const { handleSubmit } = useAddNoteDialogOnSubmit();
 	const { lang } = useLang();
 
-	useHotkeys(getHotKey(NEWNOTE_COMMAND), (e) => {
+	useHotkeys(getHotKey(Commands.NEWNOTE_COMMAND), (e) => {
 		e.preventDefault();
 		toggleIsOpen(true);
 	});
@@ -100,7 +98,7 @@ function AddDialog() {
 					<FieldSet>
 						<FieldLegend>{trans("title")}</FieldLegend>
 						<FieldDescription
-							className={lang === AR ? "text-right" : "text-left"}
+							className={lang === Languages[0] ? "text-right" : "text-left"}
 						>
 							{trans("description")}
 						</FieldDescription>

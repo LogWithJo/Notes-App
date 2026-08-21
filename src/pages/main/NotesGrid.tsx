@@ -16,9 +16,10 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useFilterNotes, useLang } from "@/hooks/hooks";
+import { useLang } from "@/hooks/hooks";
+import { useFilterNotes } from "@/hooks/useFilterNotes.hook";
 import i18n from "@/i18n";
-import { AR, EN, SORT } from "@/lib/constants";
+import { Languages, SORT } from "@/lib/constants";
 import type { AvailableLang } from "@/lib/type";
 import { useNotesStore } from "@/stores/notes.store";
 import NoteCard from "./NoteCard";
@@ -66,7 +67,7 @@ export function NotesResultsHeader() {
 
 				<Badge variant="secondary" className="h-7 rounded-full px-3">
 					{notes.length} {trans("notes")}
-					{lang === EN ? (notes.length === 1 ? "" : "s") : ""}
+					{lang === Languages[1] ? (notes.length === 1 ? "" : "s") : ""}
 				</Badge>
 			</div>
 		</div>
@@ -123,7 +124,7 @@ function SortDropDown() {
 			<DropdownMenuContent align="end">
 				{Object.values(SORT).map((sort) => (
 					<DropdownMenuItem
-						dir={lang === AR ? "rtl" : "ltr"}
+						dir={lang === Languages[0] ? "rtl" : "ltr"}
 						key={sort}
 						onClick={() => {
 							setSortedBy(sort);

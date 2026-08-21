@@ -10,7 +10,7 @@
 
 ## Bugs
 - [x] - fix uncategriezed bug
-- [ ] - fix untitled or uncontent note bug
+- [x] - fix untitled or uncontent note bug
 
 ## Enhancements
 - [x] - Undo toast after delete ("Note deleted — Undo") instead of relying solely on the trash/restore flow.
@@ -23,14 +23,10 @@
 - [x] - Costum Slider
 - [x] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [x] - Add a costum popover
-- [ ] - make a settings route and make shortcuts costumizable
 - [ ] - remove /en and put it in the localstorage
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
-
-## Future Enhancements
-- [ ] - Add an Inline Compiler for tasks, lists, etc...
 
 ## Docs
 - [x] - Update README.md to match the actual React/Vite/Zustand project scope.
