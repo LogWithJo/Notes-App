@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import TextareaAutosize from "react-textarea-autosize";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNotePage } from "@/stores/notePage.store";
+import { NoteEditor } from "./NoteEditor";
 
 export default function NoteEditorMain() {
 	const { t } = useTranslation();
@@ -20,22 +21,23 @@ export default function NoteEditorMain() {
 					<TextareaAutosize
 						value={title}
 						onChange={(e) => {
-							setTitle(e.target.value.trim());
+							setTitle(e.target.value);
 						}}
 						rows={1}
 						placeholder={t("NotePage.untitled")}
 						className="w-full resize-none bg-transparent text-5xl font-bold outline-none placeholder:text-muted-foreground"
 					/>
 
-					<TextareaAutosize
+					{/* <TextareaAutosize
 						autoFocus
 						value={content}
 						onChange={(e) => {
-							setContent(e.target.value.trim());
+							setContent(e.target.value);
 						}}
 						placeholder={`${t("NotePage.placeholder")}...`}
 						className="min-h-[65vh] w-full resize-none bg-transparent text-base leading-8 outline-none placeholder:text-muted-foreground"
-					/>
+					/> */}
+					<NoteEditor value={content} onChange={setContent} />
 					<Separator />
 				</CardContent>
 			</Card>

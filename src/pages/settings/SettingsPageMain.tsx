@@ -1,5 +1,5 @@
-import { Languages, LucideLanguages, type LucideProps } from "lucide-react";
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
+import { Languages, LucideLanguages } from "lucide-react";
+import type { ReactElement } from "react";
 import {
 	Select,
 	SelectContent,
@@ -36,9 +36,8 @@ interface Props {
 	onValueChange: () => void;
 	selectItems: {
 		value: string;
-		icon: ForwardRefExoticComponent<
-			Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-		>;
+		icon: ReactElement<any, any>
+		;
 	}[];
 }
 

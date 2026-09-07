@@ -2,21 +2,19 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNotePage } from "@/stores/notePage.store";
 import { useNotesStore } from "@/stores/notes.store";
-import { useLang } from "./hooks";
 
 export function useNotePageData(id: number) {
 	const { notes, editNote } = useNotesStore();
-	const { lang } = useLang();
 	const navigate = useNavigate();
 	const { loadNote, title, content, setIsSaving } = useNotePage();
 
 	// render the note at the page start only
 	useEffect(() => {
 		const [note] = notes.filter((note) => note.id === id) || null;
-		if (!note) navigate(`/notes/${lang}/all`);
+		if (!note) navigate(`/note/all`);
 		const load = () => loadNote(note);
 		load();
-	}, [id, lang, navigate, notes, loadNote]);
+	}, [id, navigate, notes, loadNote]);
 
 	// save the notes dynamic
 	useEffect(() => {

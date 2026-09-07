@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import i18n from "@/i18n";
 import { Languages, MOBILE_BREAKPOINT } from "@/lib/constants";
 import type { AvailableLang, NoteType } from "@/lib/type";
 import { useNotesStore } from "@/stores/notes.store";
+import { useParams } from 'react-router-dom';
 
 export function useHandleDeleteNote(id: number) {
 	const {
@@ -25,8 +25,8 @@ export function useHandleDeleteNote(id: number) {
 }
 
 export function useLang() {
-	const { lang = "en", category = "all" } = useParams();
-	const navigate = useNavigate();
+	const { category = "all" } = useParams();
+	const { language: lang, toggleLanguage } = useNotesStore();
 
 	useEffect(() => {
 		if (!lang) return;
@@ -40,7 +40,7 @@ export function useLang() {
 	function toggleLang() {
 		const newLang: AvailableLang =
 			lang === Languages[0] ? Languages[1] : Languages[0];
-		navigate(`/notes/${newLang}/${category}`);
+		toggleLanguage(newLang);
 	}
 
 	return { lang, category, toggleLang };

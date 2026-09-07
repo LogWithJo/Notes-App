@@ -13,6 +13,8 @@ export type AvailableLang = (typeof Languages)[number];
 
 export type SortTypes = (typeof SORT)[keyof typeof SORT];
 export interface NotesStore {
+	language: AvailableLang;
+	toggleLanguage: (newLang: AvailableLang) => void;
 	lastDeletedNote: NoteType | null;
 	setLastDeletedNote: (note: NoteType | null) => void;
 	isDeleteNotePortalOpen: boolean;

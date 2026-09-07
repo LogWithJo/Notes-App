@@ -23,10 +23,12 @@
 - [x] - Costum Slider
 - [x] - Sort options for the grid (last edited, title A–Z).// take care of sorting pins
 - [x] - Add a costum popover
-- [ ] - remove /en and put it in the localstorage
+- [x] - remove /en and put it in the localstorage
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
+- [ ] - Backend
+- [ ] - TypeScript & React enhancements
 
 ## Docs
 - [x] - Update README.md to match the actual React/Vite/Zustand project scope.

@@ -60,7 +60,7 @@ function SaveButton() {
 
 	function save() {
 		setLoadingPage(true)
-		navigate(`/notes/${lang}/all`);
+		navigate(`/notes/all`);
 		reset();
 	}
 

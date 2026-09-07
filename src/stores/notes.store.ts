@@ -8,6 +8,10 @@ export const useNotesStore = create<NotesStore>()(
 		persist(
 			(set) => ({
 				isErrorPortalOpen: false,
+				language: "en",
+				toggleLanguage(newLang) {
+					set({language: newLang})
+				},
 				isDeleteNotePortalOpen: false,
 				sortedBy: SORT.az,
 				lastDeletedNote: null,

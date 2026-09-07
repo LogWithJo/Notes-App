@@ -1,4 +1,3 @@
-import React from "react";
 import SettingsPageHeader from "./SettingsPageHeader";
 import SettingsPageMain from "./SettingsPageMain";
 

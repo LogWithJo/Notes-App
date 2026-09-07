@@ -107,7 +107,7 @@ export default function NoteCard({ note }: { note: NoteType }) {
 			</CardHeader>
 
 			<Link
-				to={`/note/${lang || "en"}/${note.id}`}
+				to={`/note/${note.id}`}
 				className="flex flex-1 flex-col"
 			>
 				<CardContent className="flex-1 px-5 pb-5">

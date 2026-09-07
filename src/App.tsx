@@ -6,9 +6,9 @@ import NoteEditorPage from "./pages/Note/NotePage";
 export function App() {
 	return (
 		<Routes>
-			<Route index element={<Navigate to={"/notes/en/all"} replace />} />
+			<Route index element={<Navigate to={"/notes/all"} replace />} />
 			<Route
-				path="/notes/:lang/:category"
+				path="/notes/:category"
 				element={
 					<Layout>
 						<NotesHomePage />
@@ -16,7 +16,7 @@ export function App() {
 				}
 			/>
 
-			<Route path="/note/:lang/:id" element={<NoteEditorPage />} />
+			<Route path="/note/:id" element={<NoteEditorPage />} />
 		</Routes>
 	);
 }

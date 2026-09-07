@@ -31,7 +31,7 @@ export function AppSidebar() {
 		// Close the mobile sheet when navigating from the sidebar so the
 		// overlay doesn't keep covering the content.
 		if (isMobile) setOpenMobile(false);
-		navigate(`/notes/${lang}/${category}`);
+		navigate(`/notes/${category}`);
 	}
 	function trans(dir: string) {
 		const text = t(`SideBar.${dir}`);
