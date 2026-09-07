@@ -54,7 +54,6 @@ function Status() {
 
 function SaveButton() {
 	const { t } = useTranslation();
-	const { lang } = useLang();
 	const navigate = useNavigate();
 	const { isSaving, reset, setLoadingPage } = useNotePage();
 
