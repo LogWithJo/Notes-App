@@ -10,7 +10,6 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useLang } from "@/hooks/hooks";
 import { Commands } from "@/lib/constants";
 import { getCommands, getHotKey } from "@/lib/utils";
 import { useNotePage } from "@/stores/notePage.store";
