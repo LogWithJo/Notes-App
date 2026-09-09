@@ -1,4 +1,4 @@
-# 📝 Notes-App
+# 📝 JoNotes
 
 A lightweight, local-first notes web app built with **React + TypeScript + Vite**. All notes are stored in your browser — no signup, no server, no data leaving your device.
 

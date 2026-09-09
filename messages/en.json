@@ -1,7 +1,7 @@
 {
 	"RootLayout": {
 		"metaData": {
-			"desc": "Notes App"
+			"desc": "JoNotes"
 		}
 	},
 	"HomePage": {
@@ -30,17 +30,17 @@
 			}
 		}
 	},
-    "NotesPage": {
-        "Header": {
-            "draft": "Draft",
-            "loading": "Saving",
-            "loaded": "Saved",
-            "button": "saved"
-        },
-        "Main": {
-            "EditorHeading": "Note Editor",
-            "word": "Words length",
-            "characters": "Characters length"
-        }
-    }
+	"NotesPage": {
+		"Header": {
+			"draft": "Draft",
+			"loading": "Saving",
+			"loaded": "Saved",
+			"button": "saved"
+		},
+		"Main": {
+			"EditorHeading": "Note Editor",
+			"word": "Words length",
+			"characters": "Characters length"
+		}
+	}
 }

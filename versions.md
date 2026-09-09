@@ -1,6 +1,6 @@
 # 📦 Versions History & Enhancements
 
-> All versions of **Notes-App** with their enhancements, release dates, and git references.
+> All versions of **JoNotes** with their enhancements, release dates, and git references.
 
 ---
 

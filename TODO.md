@@ -27,8 +27,12 @@
 - [ ] - Markdown or basic rich-text support in the note editor.
 - [ ] - Export/import notes (JSON or plain text) for backup.
 - [ ] - Empty-trash action (bulk permanent delete) with confirmation.
-- [ ] - Backend
 - [ ] - TypeScript & React enhancements
+
+## Backend
+- [x] - Backend
+- [ ] - register and login page 
+- [ ] - api file handling
 
 ## Docs
 - [x] - Update README.md to match the actual React/Vite/Zustand project scope.
